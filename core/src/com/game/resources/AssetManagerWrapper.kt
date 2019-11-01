@@ -4,6 +4,13 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.utils.GdxRuntimeException
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
+import com.badlogic.gdx.assets.loaders.FileHandleResolver
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter
 
 class AssetManagerWrapper(private val missingTexturePath: String) {
 
@@ -22,6 +29,11 @@ class AssetManagerWrapper(private val missingTexturePath: String) {
         }
 
         assetManager = AssetManager()
+
+        val resolver = InternalFileHandleResolver()
+        assetManager!!.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
+        assetManager!!.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
+
         assetManager!!.load(missingTexturePath, Texture::class.java)
         assetManager!!.finishLoading()
         missingTexture = assetManager!!.get(missingTexturePath)
@@ -43,10 +55,6 @@ class AssetManagerWrapper(private val missingTexturePath: String) {
         assetManager?.load(path, Texture::class.java)
     }
 
-    fun unloadTexture(path: String) {
-        assetManager?.unload(path)
-    }
-
     fun applyTexture(applyTo: TextureRegion, texturePath: String): Boolean {
         if (applyTo.texture == null) {
             val texture = getTexture(texturePath)
@@ -60,10 +68,28 @@ class AssetManagerWrapper(private val missingTexturePath: String) {
         return true
     }
 
+    fun loadFont(path: String, size: Int) {
+        val fontParameters = FreeTypeFontLoaderParameter()
+        fontParameters.fontFileName = path
+        fontParameters.fontParameters.size = size
+        fontParameters.fontParameters.mono = true
+        assetManager?.load(path, BitmapFont::class.java, fontParameters)
+    }
+
+    fun unload(path: String) {
+        assetManager?.unload(path)
+    }
+
     fun getTexture(path: String): Texture = try {
         assetManager?.get<Texture>(path)!!
     } catch (exception: GdxRuntimeException) {
-        missingTexture ?: error("Asset manager wrapper not yet initialised")
+        missingTexture!!
+    }
+
+    fun getFont(path: String): BitmapFont = try {
+        assetManager?.get<BitmapFont>(path)!!
+    } catch (exception: GdxRuntimeException) {
+        BitmapFont()
     }
 
 }

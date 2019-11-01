@@ -63,8 +63,10 @@ class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
             font: BitmapFont,
             colour: Color = Color.BLACK,
             centreX: Boolean = false,
-            centreY: Boolean = false
+            centreY: Boolean = false,
+            scale: Float = 1f
     ) {
+        font.data.setScale(scale, scale)
         val layout = GlyphLayout(font, text)
         val xOffset = if (centreX) { -layout.width / 2f } else { 0f }
         val yOffset = if (centreY) { layout.height / 2f } else { layout.height }

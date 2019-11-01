@@ -13,6 +13,7 @@ class Main: ApplicationAdapter() {
 
     override fun create() {
         AssetManagerWrapper.INSTANCE.initialise()
+        AssetManagerWrapper.INSTANCE.loadFont("editundo.ttf", 16)
         gsm.queueState(TestState())
     }
 
@@ -25,6 +26,7 @@ class Main: ApplicationAdapter() {
     }
 
     override fun dispose() {
+        AssetManagerWrapper.INSTANCE.unload("editundo.ttf")
         gsm.onExit()
     }
 
