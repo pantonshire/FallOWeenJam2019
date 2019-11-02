@@ -61,7 +61,7 @@ class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
             text: String,
             position: Vec,
             font: BitmapFont,
-            colour: Color = Color.BLACK,
+            colour: Color = Color.WHITE,
             centreX: Boolean = false,
             centreY: Boolean = false,
             scale: Float = 1f
@@ -117,7 +117,7 @@ class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
             originX: Float = width / 2f,
             originY: Float = height / 2f
     ) {
-        drawRegion(region, position - Vec(region.regionWidth / 2f, region.regionHeight / 2f), xScale, yScale, rotation, width, originX, originY)
+        drawRegion(region, position - Vec(region.regionWidth / 2f, region.regionHeight / 2f), xScale, yScale, rotation, width, height, originX, originY)
     }
 
     fun getVisibleRange(): Pair<ClosedFloatingPointRange<Float>, ClosedFloatingPointRange<Float>> {

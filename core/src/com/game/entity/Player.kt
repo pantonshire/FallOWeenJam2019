@@ -12,9 +12,12 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
 
-class Player(world: World, position: Vec): Entity(world, Vec(32f, 32f), position) {
+// TODO: short jumps / high jumps
+class Player(world: World, position: Vec): Entity(world, Vec(10f, 19f), position) {
 
-    val texturePath = "player.png"
+    val animationPath = "player"
+    val animation = AssetManagerWrapper.INSTANCE.fetchAnimation(animationPath)
+
     val walkAcceleration = 0.2f
     val walkDeceleration = 0.3f
     val wallJumpDeceleration = 0.01f
@@ -39,9 +42,9 @@ class Player(world: World, position: Vec): Entity(world, Vec(32f, 32f), position
     var coyoteTime = 0
     var wallCoyoteTime = 0
 
-    init {
-        AssetManagerWrapper.INSTANCE.loadTexture(texturePath)
-    }
+    var currentAnimation = "NONE"
+    var animationTime = 0f
+    var facingRight = true
 
     override fun entityUpdateEarly(delta: Float) {
         if (velocity.y != 0f) {
@@ -55,6 +58,8 @@ class Player(world: World, position: Vec): Entity(world, Vec(32f, 32f), position
         val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
 
         checkTouchingWall()
+
+        var wallSliding = !onGround && (touchingWallLeft || touchingWallRight) && velocity.y < 0 && ((inRight && touchingWallRight) || (inLeft && touchingWallLeft))
 
         if (touchingWallLeft || touchingWallRight) {
             wallCoyoteTime = 8
@@ -78,11 +83,14 @@ class Player(world: World, position: Vec): Entity(world, Vec(32f, 32f), position
         }
 
         if (inLeft != inRight) {
+            if (onGround) {
+                facingRight = inRight
+            }
             val targetDirection = if (inLeft) { -1f } else { 1f }
             val acceleration = if (velocity.x == 0f || sign(velocity.x) == targetDirection) {
                 walkAcceleration * targetDirection
             } else if (onGround) {
-                brakeDeceleration
+                brakeDeceleration * targetDirection
             } else if (wallJumping) {
                 wallJumpBrakeDeceleration
             } else {
@@ -115,21 +123,43 @@ class Player(world: World, position: Vec): Entity(world, Vec(32f, 32f), position
             jumpInputBuffer = 0
             wallJumping = true
             onGround = false
+            wallSliding = false
             velocity = Vec(wallJumpHSpeed * lastWallTouchDirection, wallJumpVSpeed)
         } else {
-            val wallSliding = (touchingWallLeft || touchingWallRight) && velocity.y < 0 && ((inRight && touchingWallRight) || (inLeft && touchingWallLeft))
             val acceleration = if (wallSliding) { wallSlideGravity } else { gravity }
             val max = if (wallSliding) { wallSlideTerminalVelocity } else { terminalVelocity }
             velocity = Vec(velocity.x, max(velocity.y - acceleration, -max))
         }
+
+        if (!onGround && velocity.x != 0f) {
+            facingRight = velocity.x > 0f
+        }
+
+        val lastAnimation = currentAnimation
+
+        currentAnimation = if(wallSliding) {
+            "slide"
+        } else if (!onGround) {
+            "jump"
+        } else if (onGround && velocity.x != 0f) {
+            "walk"
+        } else {
+            "idle"
+        }
+
+        if (currentAnimation != lastAnimation) {
+            animationTime = 0f
+        } else {
+            animationTime += delta
+        }
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture(texturePath), position)
+        canvas.drawRegionCentred(animation[currentAnimation].getKeyFrame(animationTime), position, xScale = if(facingRight) { 1f } else { -1f })
     }
 
     override fun onRemoved() {
-        AssetManagerWrapper.INSTANCE.unload(texturePath)
+        AssetManagerWrapper.INSTANCE.unload(animationPath)
     }
 
     override fun onSpawn() {

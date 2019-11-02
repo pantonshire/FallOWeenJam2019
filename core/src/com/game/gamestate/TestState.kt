@@ -12,21 +12,22 @@ import java.awt.Point
 
 class TestState: World() {
 
-    override val map: TileMap = TileMap("tileset.png", 100, 100, 32)
+    override val map: TileMap = TileMap("tileset.png", 100, 100, 24)
 
     var introTimer = 200
 
     init {
         spawn(Player(this, Vec(64f, 64f)))
 
-        for (x in 0..10) {
-            map.setTileAt(Point(x, 0), Tile.BLOCK)
+        for (x in 0..9) {
+            map.setTileAt(Point(x, 0), Tile.FLOOR)
         }
 
-        map.setTileAt(Point(10, 1), Tile.BLOCK)
+        map.setTileAt(Point(10, 0), Tile.INSIDE)
+        map.setTileAt(Point(10, 1), Tile.FLOOR)
 
         for (y in 0..10) {
-            map.setTileAt(Point(11, y), Tile.BLOCK)
+            map.setTileAt(Point(11, y), Tile.RWALL)
         }
     }
 
