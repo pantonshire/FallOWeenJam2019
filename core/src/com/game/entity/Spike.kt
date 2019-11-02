@@ -5,9 +5,9 @@ import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 
-class Spike(world: World, position: Vec): Entity(world, Vec(16f, 10f), position) {
+class Spike(world: World, position: Vec, inverted: Boolean = false): Entity(world, Vec(16f, 10f), position) {
 
-    private val texturePath = "spike.png"
+    private val texturePath = if (inverted) { "invertedSpike.png" } else { "spike.png" }
 
     init {
         AssetManagerWrapper.INSTANCE.loadTexture(texturePath)
