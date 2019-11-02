@@ -1,4 +1,4 @@
-package com.game.score
+package com.game.level
 
 object Score {
 

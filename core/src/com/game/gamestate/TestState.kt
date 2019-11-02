@@ -7,6 +7,7 @@ import com.game.entity.Bomb
 import com.game.entity.Door
 import com.game.entity.Player
 import com.game.graphics.Canvas
+import com.game.level.Modifiers
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import com.game.tilemap.Tile
@@ -23,7 +24,7 @@ class TestState: World() {
     val textLine1 = "THE BOMB WILL DETONATE"
     val textLine2 = "IN FIFTEEN SECONDS."
 
-    val player = Player(this, Vec(64f, 64f))
+    val player = Player(this, arrayOf(Modifiers.JUMP_INV_GRAVITY), Vec(64f, 64f))
     val door = Door(this, Vec(120f, 37f))
     val bomb = Bomb(this, Vec(50f, 34f))
 

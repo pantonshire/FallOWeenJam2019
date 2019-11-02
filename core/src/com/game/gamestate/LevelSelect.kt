@@ -6,7 +6,7 @@ import com.game.Main
 import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
-import com.game.score.Score
+import com.game.level.Score
 
 class LevelSelect: GameState() {
 
