@@ -3,9 +3,7 @@ package com.game.gamestate
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.game.Main
-import com.game.entity.Bomb
-import com.game.entity.Door
-import com.game.entity.Player
+import com.game.entity.*
 import com.game.graphics.Canvas
 import com.game.level.Modifiers
 import com.game.maths.Vec
@@ -20,11 +18,11 @@ import kotlin.math.max
 class TestState: World() {
 
     override val map: TileMap = TileMapFactory.loadMap("maps/test.map", "tileset.png")
+    override val player = PlayableDoor(this, arrayOf(), Vec(64f, 64f))
 
     val textLine1 = "THE BOMB WILL DETONATE"
     val textLine2 = "IN FIFTEEN SECONDS."
 
-    val player = Player(this, arrayOf(Modifiers.JUMP_INV_GRAVITY), Vec(64f, 64f))
     val door = Door(this, Vec(120f, 37f))
     val bomb = Bomb(this, Vec(50f, 34f))
 
@@ -41,6 +39,8 @@ class TestState: World() {
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
         AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
 
+        spawn(Spike(this, Vec(372f, 31f)))
+
         spawn(bomb)
         spawn(door)
 
@@ -51,7 +51,10 @@ class TestState: World() {
         if (introTimer <= 0 && !done) {
             super.update(delta)
 
-            if (player.intersects(door)) {
+            if (player.isDead) {
+                done = true
+                displayText = "FAILURE"
+            } else if (player.intersects(door)) {
                 player.retire()
                 done = true
                 won = true
@@ -61,10 +64,10 @@ class TestState: World() {
                 if (framesLeft <= 0) {
                     done = true
                     exploded = true
-                    displayText = "KABOOM."
+                    displayText = "KABOOM!"
                 }
             }
-        } else if(done) {
+        } else if (done) {
             outroTimer--
             if (outroTimer <= 0) {
                 Main.gsm.queueState(MainMenu())

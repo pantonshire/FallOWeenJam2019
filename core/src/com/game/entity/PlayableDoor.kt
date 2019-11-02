@@ -4,8 +4,9 @@ import com.game.gamestate.World
 import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
+import kotlin.math.sign
 
-class Door(world: World, position: Vec): Entity(world, Vec(8f, 10f), position) {
+class PlayableDoor(world: World, modifiers: Array<String>, position: Vec): Playable(world, Vec(12f, 24f), modifiers, position) {
 
     private val doorTexturePath = "door.png"
     private val exitTexturePath = "exit.png"
@@ -20,13 +21,13 @@ class Door(world: World, position: Vec): Entity(world, Vec(8f, 10f), position) {
         canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture(exitTexturePath), position + Vec(0f, 20f))
     }
 
-    override fun onSpawn() {
-
-    }
-
     override fun onRemoved() {
         AssetManagerWrapper.INSTANCE.unload(doorTexturePath)
         AssetManagerWrapper.INSTANCE.unload(exitTexturePath)
+    }
+
+    override fun onSpawn() {
+
     }
 
 }

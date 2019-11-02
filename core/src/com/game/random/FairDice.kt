@@ -21,4 +21,7 @@ class FairDice(private val random: Random = Random()): Dice() {
     override fun chance(p: Double) =
             random.nextDouble() < p
 
+    override fun <T> choose(array: Array<T>): T =
+            array[roll(array.indices)]
+
 }

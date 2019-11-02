@@ -41,6 +41,9 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
     protected var facingRight = true
         private set
 
+    var isDead = false
+        private set
+
     init {
         if (modifier(Modifiers.INV_GRAVITY)) {
             gravity = -0.2f
@@ -49,6 +52,10 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
 
     fun modifier(name: String) =
             name in modifiers
+
+    fun kill() {
+        isDead = true
+    }
 
     override fun entityUpdateLate(delta: Float) {
         val inLeft = Gdx.input.isKeyPressed(Input.Keys.A)

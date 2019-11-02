@@ -25,6 +25,8 @@ abstract class Dice {
 
     abstract fun flip(): Boolean
 
+    abstract fun<T> choose(array: Array<T>): T
+
     fun rollAngle() =
             Angle(rollF(0f..Maths.TAU))
 

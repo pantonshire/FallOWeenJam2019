@@ -1,12 +1,14 @@
 package com.game.gamestate
 
 import com.game.entity.Entity
+import com.game.entity.Playable
 import com.game.graphics.Canvas
 import com.game.tilemap.TileMap
 
 abstract class World: GameState() {
 
     abstract val map: TileMap
+    abstract val player: Playable
 
     val entities = ArrayList<Entity>()
 
