@@ -5,18 +5,38 @@ import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 
-class Spike(world: World, position: Vec): Entity(world, Vec(16f, 10f), position) {
+class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(24f, 24f), 0f, position) {
 
-    private val texturePath = "spike.png"
+    private val texturePath = "spikeBlock.png"
+
+    private val speed = 10f
+    private val maxWait = 80
+
+    private var waitTime = 0
+    private var travellingDown = true
 
     init {
         AssetManagerWrapper.INSTANCE.loadTexture(texturePath)
+        slam()
     }
 
     override fun entityUpdateLate(delta: Float) {
         if (intersects(world.player)) {
             world.player.kill()
         }
+
+        if (velocity.y == 0f) {
+            waitTime --
+            if (waitTime <= 0) {
+                travellingDown = !travellingDown
+                slam()
+            }
+        }
+    }
+
+    fun slam() {
+        waitTime = maxWait
+        velocity = Vec(velocity.x, if (travellingDown) { -speed } else { speed })
     }
 
     override fun draw(canvas: Canvas) {

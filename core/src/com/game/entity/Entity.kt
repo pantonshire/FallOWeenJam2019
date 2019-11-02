@@ -47,10 +47,10 @@ abstract class Entity(val world: World, val size: Vec, initialPosition: Vec) {
     }
 
     fun intersects(other: Entity, futurePosition: Vec = this.position): Boolean =
-            futurePosition.x < other.position.x + other.size.x &&
-                futurePosition.x + this.size.x > other.position.x &&
-                futurePosition.y < other.position.y + other.size.y &&
-                futurePosition.y + this.size.y > other.position.y
+            futurePosition.x - this.extents.x < other.position.x + other.extents.x &&
+                futurePosition.x + this.extents.x > other.position.x - other.extents.x &&
+                futurePosition.y - this.extents.y < other.position.y + other.extents.y &&
+                futurePosition.y + this.extents.y > other.position.y - other.extents.y
 
     fun getOccupyingTilesH(futurePosition: Vec = this.position) =
             this.world.map.toMapX(futurePosition.x - this.extents.x)..this.world.map.toMapX(futurePosition.x + this.extents.x)

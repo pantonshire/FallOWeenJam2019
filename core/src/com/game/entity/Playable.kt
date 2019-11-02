@@ -14,19 +14,19 @@ import kotlin.math.sign
 // TODO: short jumps / high jumps
 abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, initialPosition: Vec): PhysicsEntity(world, size, 0.2f, initialPosition) {
 
-    protected val walkAcceleration = 0.2f
-    protected val walkDeceleration = 0.3f
-    protected val wallJumpDeceleration = 0.01f
-    protected val brakeDeceleration = 0.6f
-    protected val midairBrakeDeceleration = 1.0f
-    protected val wallJumpBrakeDeceleration = 0.05f
-    protected val walkSpeed = 3f
-    protected val jumpSpeed = 4.5f
-    protected val wallJumpHSpeed = 3f
-    protected val wallJumpVSpeed = 5f
-    protected val wallSlideGravity = 0.02f
-    protected val terminalVelocity = 5f
-    protected val wallSlideTerminalVelocity = 1.5f
+    protected var walkAcceleration = 0.2f
+    protected var walkDeceleration = 0.4f
+    protected var wallJumpDeceleration = 0.01f
+    protected var brakeDeceleration = 0.6f
+    protected var midairBrakeDeceleration = 1.0f
+    protected var wallJumpBrakeDeceleration = 0.05f
+    protected var walkSpeed = 3f
+    protected var jumpSpeed = 4.5f
+    protected var wallJumpHSpeed = 2.5f
+    protected var wallJumpVSpeed = 5f
+    protected var wallSlideGravity = 0.02f
+    protected var terminalVelocity = 5f
+    protected var wallSlideTerminalVelocity = 1.5f
 
     protected var touchingWallLeft = false
     protected var touchingWallRight = false

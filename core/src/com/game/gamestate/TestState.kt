@@ -17,17 +17,19 @@ import kotlin.math.max
 
 class TestState: World() {
 
-    override val map: TileMap = TileMapFactory.loadMap("maps/test.map", "tileset.png")
-    override val player = PlayableDoor(this, arrayOf(), Vec(64f, 64f))
+    override val map: TileMap = TileMapFactory.loadMap("maps/level1.map", "tileset1.png")
+    override val player = Player(this, arrayOf(), Vec(64f, 64f))
 
     val textLine1 = "THE BOMB WILL DETONATE"
     val textLine2 = "IN FIFTEEN SECONDS."
 
-    val door = Door(this, Vec(120f, 37f))
+    val door = Door(this, Vec(40f, 205f))
     val bomb = Bomb(this, Vec(50f, 34f))
 
-    var introTimer = 200
-    var framesLeft = 900
+//    var introTimer = 200
+    var introTimer = 0
+//    var framesLeft = 900
+    var framesLeft = 9000
 
     var done = false
     var won = false
@@ -39,7 +41,12 @@ class TestState: World() {
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
         AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
 
-        spawn(Spike(this, Vec(372f, 31f)))
+        for (i in 0..3) {
+            spawn(Spike(this, Vec(396f + (24f * i), 31f)))
+        }
+
+        spawn(Spike(this, Vec(300f, 199f)))
+        spawn(SpikeBlock(this, Vec(168f, 264f)))
 
         spawn(bomb)
         spawn(door)
@@ -84,7 +91,7 @@ class TestState: World() {
             val secondsLeft = max(ceil((framesLeft / 60f)).toInt(), 0)
             val secondsStr = if (secondsLeft < 10) { "0$secondsLeft" } else { "$secondsLeft" }
             canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture("blackBox.png"), Vec(45f, canvas.resY - 45f), width = 72f, height = 72f)
-            canvas.drawText(secondsStr, Vec(45f, canvas.resY - 45f), font, scale = 4f, centreX = true, centreY = true)
+            canvas.drawText(secondsStr, Vec(45f, canvas.resY - 45f), font, scale = 2f, centreX = true, centreY = true)
 
             if (done) {
                 if (exploded) {

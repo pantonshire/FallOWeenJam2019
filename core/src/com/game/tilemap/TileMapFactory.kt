@@ -26,13 +26,13 @@ object TileMapFactory {
         return map
     }
 
-    private fun getTileFromChar(character: Char) = when (character) {
-        'I' -> Tile.INSIDE
-        'F' -> Tile.FLOOR
-        'C' -> Tile.CEIL
-        'L' -> Tile.LWALL
-        'R' -> Tile.RWALL
-        else -> Tile.EMPTY
+    private fun getTileFromChar(character: Char): Tile {
+        for (tile in Tile.tileTypes) {
+            if (tile.charRepresentation == character) {
+                return tile
+            }
+        }
+        return Tile.EMPTY
     }
 
 }

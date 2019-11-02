@@ -14,6 +14,10 @@ class PlayableDoor(world: World, modifiers: Array<String>, position: Vec): Playa
     init {
         AssetManagerWrapper.INSTANCE.loadTexture(doorTexturePath)
         AssetManagerWrapper.INSTANCE.loadTexture(exitTexturePath)
+        walkSpeed = 1.5f
+        jumpSpeed = 3.5f
+        wallJumpHSpeed = 1.5f
+        wallJumpVSpeed = 3.5f
     }
 
     override fun draw(canvas: Canvas) {
