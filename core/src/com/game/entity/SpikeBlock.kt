@@ -5,7 +5,7 @@ import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 
-class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(24f, 24f), 0f, position) {
+class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(20f, 20f), 0f, position) {
 
     private val texturePath = "spikeBlock.png"
 

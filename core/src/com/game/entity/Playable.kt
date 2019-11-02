@@ -117,7 +117,13 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             }
         }
 
-        if (coyoteTime > 0 && jumpInputBuffer > 0) {
+        val jumping = if (modifier(Modifiers.POGO)) {
+            onGround
+        } else {
+            coyoteTime > 0 && jumpInputBuffer > 0
+        }
+
+        if (jumping) {
             coyoteTime = 0
             jumpInputBuffer = 0
             onGround = false

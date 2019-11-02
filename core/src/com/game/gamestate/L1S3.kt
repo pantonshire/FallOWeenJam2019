@@ -1,19 +1,7 @@
 package com.game.gamestate
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.assets.AssetManager
-import com.game.Main
 import com.game.entity.*
-import com.game.graphics.Canvas
-import com.game.level.Modifiers
 import com.game.maths.Vec
-import com.game.resources.AssetManagerWrapper
-import com.game.tilemap.Tile
-import com.game.tilemap.TileMap
-import com.game.tilemap.TileMapFactory
-import java.awt.Point
-import kotlin.math.ceil
-import kotlin.math.max
 
 class L1S3(nextState: GameState, stageNo: Int): Stage(
         nextState,

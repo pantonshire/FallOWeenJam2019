@@ -4,17 +4,17 @@ import com.game.entity.*
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class L1S2(nextState: GameState, stageNo: Int): Stage(
+class L1S4(nextState: GameState, stageNo: Int): Stage(
         nextState,
         stageNo,
         "level1",
         "tileset1",
         900,
-        "WHEN YOU JUMP",
-        "GRAVITY FLIPS."
+        "THE FLOOR",
+        "IS BOUNCY."
 ) {
 
-    override val player = Player(this, arrayOf(Modifiers.JUMP_INV_GRAVITY), Vec(64f, 34f))
+    override val player = Player(this, arrayOf(Modifiers.POGO), Vec(64f, 34f))
     override val door = Door(this, Vec(40f, 205f))
     override val bomb = Bomb(this, Vec(80f, 34f))
 

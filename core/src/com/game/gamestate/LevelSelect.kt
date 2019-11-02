@@ -27,7 +27,7 @@ class LevelSelect: GameState() {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if (option == 1) {
                 Score.newLevel()
-                Main.gsm.queueState(L1S1(L1S2(L1S3(this, 2), 1), 0))
+                Main.gsm.queueState(L1S1(L1S2(L1S3(L1S4(this, 3), 2), 1), 0))
             } else if (option == 5) {
                 Main.gsm.queueState(MainMenu())
             }
