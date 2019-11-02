@@ -3,6 +3,7 @@ package com.game.gamestate
 import com.game.Main
 import com.game.entity.Entity
 import com.game.graphics.Canvas
+import com.game.level.Score
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import com.game.tilemap.TileMap
@@ -48,6 +49,7 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
                 displayText = "FAILURE"
                 AssetManagerWrapper.INSTANCE.getSound("death.wav").play()
             } else if (player.intersects(door)) {
+                Score.winStage()
                 player.retire()
                 done = true
                 won = true

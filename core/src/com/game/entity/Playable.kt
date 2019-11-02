@@ -155,6 +155,7 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             jumpInputBuffer = 0
             wallJumping = true
             onGround = false
+            AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
             wallSliding = false
             if (modifier(Modifiers.JUMP_INV_GRAVITY)) {
                 gravity = -gravity
