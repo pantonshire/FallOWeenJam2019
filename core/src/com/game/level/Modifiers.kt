@@ -7,5 +7,6 @@ object Modifiers {
     const val POGO = "pogo"
     const val HYPERSPEED = "hyperspeed"
     const val FADE = "fade"
+    const val INVERTED_CONTROLS = "inverted"
 
 }

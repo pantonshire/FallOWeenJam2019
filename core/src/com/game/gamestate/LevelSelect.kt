@@ -28,7 +28,7 @@ class LevelSelect: GameState() {
             AssetManagerWrapper.INSTANCE.getSound("select.wav").play()
             if (option == 1) {
                 Score.newLevel()
-                Main.gsm.queueState(L1S1(L1S2(L1S3(L1S4(L1S5(L1S6(this, 5), 4), 3), 2), 1), 0))
+                Main.gsm.queueState(L1S1(L1S2(L1S3(L1S4(L1S5(L1S6(L1S7(this, 6), 5), 4), 3), 2), 1), 0))
             } else if (option == 5) {
                 Main.gsm.queueState(MainMenu())
             }

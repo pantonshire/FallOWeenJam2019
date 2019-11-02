@@ -57,9 +57,9 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         }
 
         if (modifier(Modifiers.HYPERSPEED)) {
-            walkSpeed = 7.5f
-            walkAcceleration = 1.0f
-            jumpSpeed = 10f
+            walkSpeed = 5f
+            wallJumpVSpeed = 4.5f
+            walkAcceleration = 0.4f
         }
     }
 
@@ -74,9 +74,9 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         timeAlive += delta
         framesAlive += 1
 
-        val inLeft = Gdx.input.isKeyPressed(Input.Keys.A)
-        val inRight = Gdx.input.isKeyPressed(Input.Keys.D)
-        val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.W)
+        val inLeft = if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) } else { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) }
+        val inRight = if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) } else { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) }
+        val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
 
         checkTouchingWall()
 
