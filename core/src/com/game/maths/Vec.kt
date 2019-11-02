@@ -110,6 +110,12 @@ class Vec(val x: Float = 0f, val y: Float = 0f): Approximatable<Vec>, Comparable
     fun reverse() =
             Vec(this.y, this.x)
 
+    fun xComponent() =
+            Vec(this.x, 0f)
+
+    fun yComponent() =
+            Vec(0f, this.y)
+
     fun floor() =
             Vec(floor(this.x), floor(this.y))
 

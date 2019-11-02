@@ -24,6 +24,10 @@ class TestState: World() {
         }
 
         map.setTileAt(Point(10, 1), Tile.BLOCK)
+
+        for (y in 0..10) {
+            map.setTileAt(Point(11, y), Tile.BLOCK)
+        }
     }
 
     override fun update(delta: Float) {
@@ -43,7 +47,7 @@ class TestState: World() {
             }
 
             if (introTimer < 100) {
-                canvas.drawText("IN FIFTEEN SECONDS.", Vec(canvas.resX / 2f, canvas.resY - 270f), AssetManagerWrapper.INSTANCE.getFont("editundo.ttf"), scale = 2f, centreX = true)
+                canvas.drawText("IN FIFTEEN SECONDS.", Vec(canvas.resX / 2f, canvas.resY - 260f), AssetManagerWrapper.INSTANCE.getFont("editundo.ttf"), scale = 2f, centreX = true)
             }
 
             introTimer--
