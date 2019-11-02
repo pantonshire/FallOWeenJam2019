@@ -32,7 +32,7 @@ open class TileMap(private val tilesetPath: String, val width: Int, val height: 
     }
 
     fun isSolid(pos: Point) =
-            tileAt(pos).solid
+            if (inBounds(pos)) { tileAt(pos).solid } else { true }
 
     fun inBounds(pos: Point) =
             pos.x in 0 until width && pos.y in 0 until height

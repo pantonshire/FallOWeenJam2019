@@ -4,17 +4,20 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.game.gamestate.GameStateManager
+import com.game.gamestate.MainMenu
 import com.game.gamestate.TestState
 import com.game.resources.AssetManagerWrapper
 
 class Main: ApplicationAdapter() {
 
-    val gsm = GameStateManager()
+    companion object {
+        val gsm = GameStateManager()
+    }
 
     override fun create() {
         AssetManagerWrapper.INSTANCE.initialise()
         AssetManagerWrapper.INSTANCE.loadFont("editundo.ttf", 16)
-        gsm.queueState(TestState())
+        gsm.queueState(MainMenu())
     }
 
     override fun render() {

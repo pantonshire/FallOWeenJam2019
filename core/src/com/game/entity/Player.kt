@@ -26,7 +26,7 @@ class Player(world: World, position: Vec): Entity(world, Vec(10f, 19f), position
     val wallJumpBrakeDeceleration = 0.05f
     val walkSpeed = 3f
     val jumpSpeed = 4.5f
-    val wallJumpHSpeed = 4.5f
+    val wallJumpHSpeed = 3f
     val wallJumpVSpeed = 5f
     val gravity = 0.2f
     val wallSlideGravity = 0.02f
