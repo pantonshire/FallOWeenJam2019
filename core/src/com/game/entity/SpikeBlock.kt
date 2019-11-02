@@ -5,22 +5,26 @@ import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 
-class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(20f, 20f), 0f, position) {
+class SpikeBlock(world: World, position: Vec, val maxWait: Int = 80, initialWait: Int = 0): PhysicsEntity(world, Vec(20f, 20f), 0f, position) {
 
-    private val texturePath = "spikeBlock.png"
+    private val animationPath = "spikeBlock"
+    private val animation = AssetManagerWrapper.INSTANCE.fetchAnimation(animationPath)
 
     private val speed = 10f
-    private val maxWait = 80
 
-    private var waitTime = 0
+    private var waitTime = initialWait
     private var travellingDown = true
 
+    private var currentAnimation = "neutral"
+    private var animationTime = 0f
+
     init {
-        AssetManagerWrapper.INSTANCE.loadTexture(texturePath)
         slam()
     }
 
     override fun entityUpdateLate(delta: Float) {
+        animationTime += delta
+
         if (intersects(world.player)) {
             world.player.kill()
         }
@@ -30,6 +34,8 @@ class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(20f, 20f
             if (waitTime <= 0) {
                 travellingDown = !travellingDown
                 slam()
+            } else {
+                currentAnimation = "neutral"
             }
         }
     }
@@ -37,10 +43,12 @@ class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(20f, 20f
     fun slam() {
         waitTime = maxWait
         velocity = Vec(velocity.x, if (travellingDown) { -speed } else { speed })
+        currentAnimation = "move_nr"
+        animationTime = 0f
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture(texturePath), position)
+        canvas.drawRegionCentred(animation[currentAnimation].getKeyFrame(animationTime), position)
 //        canvas.drawTexture(AssetManagerWrapper.INSTANCE.getTexture("debug.png"), position)
 //        canvas.drawTexture(AssetManagerWrapper.INSTANCE.getTexture("debug.png"), position - extents.xComponent())
 //        canvas.drawTexture(AssetManagerWrapper.INSTANCE.getTexture("debug.png"), position + extents.xComponent())
@@ -51,7 +59,7 @@ class SpikeBlock(world: World, position: Vec): PhysicsEntity(world, Vec(20f, 20f
     }
 
     override fun onRemoved() {
-        AssetManagerWrapper.INSTANCE.unload(texturePath)
+        AssetManagerWrapper.INSTANCE.unload(animationPath)
     }
 
 }

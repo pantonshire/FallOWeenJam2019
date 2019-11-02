@@ -19,6 +19,10 @@ class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
 
     private var viewport = FitViewport(resX, resY, camera)
 
+    var colour: Color
+        get() = spriteBatch.color
+        set(value) { spriteBatch.color = value }
+
     init {
         this.updateViewport(Gdx.graphics.width, Gdx.graphics.height)
     }

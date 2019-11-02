@@ -1,8 +1,6 @@
 package com.game.maths
 
-import kotlin.math.abs
-import kotlin.math.ceil
-import kotlin.math.floor
+import kotlin.math.*
 
 object Maths {
 
@@ -33,5 +31,11 @@ object Maths {
 
     fun approxZero(x: Float, error: Float = DEFAULT_FLOAT_APPROX) =
             abs(x) < error
+
+
+    fun contSqrtCos(radians: Float): Float {
+        val cosine = cos(radians)
+        return sqrt(abs(cosine)) * sign(cosine)
+    }
 
 }

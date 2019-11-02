@@ -77,10 +77,42 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
     "sourceSize": { "w": 20, "h": 20 },
-    "duration": 100
+    "duration": 60
    },
    "player 10.aseprite": {
     "frame": { "x": 200, "y": 0, "w": 20, "h": 20 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
+    "sourceSize": { "w": 20, "h": 20 },
+    "duration": 60
+   },
+   "player 11.aseprite": {
+    "frame": { "x": 220, "y": 0, "w": 20, "h": 20 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
+    "sourceSize": { "w": 20, "h": 20 },
+    "duration": 60
+   },
+   "player 12.aseprite": {
+    "frame": { "x": 240, "y": 0, "w": 20, "h": 20 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
+    "sourceSize": { "w": 20, "h": 20 },
+    "duration": 60
+   },
+   "player 13.aseprite": {
+    "frame": { "x": 260, "y": 0, "w": 20, "h": 20 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
+    "sourceSize": { "w": 20, "h": 20 },
+    "duration": 60
+   },
+   "player 14.aseprite": {
+    "frame": { "x": 280, "y": 0, "w": 20, "h": 20 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 20, "h": 20 },
@@ -93,13 +125,13 @@
   "version": "1.2.14",
   "image": "player.png",
   "format": "RGBA8888",
-  "size": { "w": 220, "h": 20 },
+  "size": { "w": 300, "h": 20 },
   "scale": "1",
   "frameTags": [
    { "name": "idle", "from": 0, "to": 0, "direction": "forward" },
    { "name": "walk", "from": 1, "to": 8, "direction": "forward" },
-   { "name": "jump", "from": 9, "to": 9, "direction": "forward" },
-   { "name": "slide", "from": 10, "to": 10, "direction": "forward" }
+   { "name": "jump_nr", "from": 9, "to": 13, "direction": "forward" },
+   { "name": "slide", "from": 14, "to": 14, "direction": "forward" }
   ],
   "layers": [
    { "name": "body", "opacity": 255, "blendMode": "normal" },

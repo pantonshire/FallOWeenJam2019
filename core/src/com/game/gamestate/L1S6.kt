@@ -4,14 +4,14 @@ import com.game.entity.*
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class L1S1(nextState: GameState, stageNo: Int): Stage(
+class L1S6(nextState: GameState, stageNo: Int): Stage(
         nextState,
         stageNo,
         "level1",
         "tileset1",
         900,
-        "THE BOMB WILL DETONATE",
-        "IN FIFTEEN SECONDS."
+        "MORE CRUSHY BLOCKS",
+        "AND THEY\'RE ANGRY."
 ) {
 
     override val player = Player(this, arrayOf(), Vec(64f, 34f))
@@ -29,7 +29,9 @@ class L1S1(nextState: GameState, stageNo: Int): Stage(
         spawn(Spike(this, Vec(372f, 329f), true))
         spawn(Spike(this, Vec(252f, 329f), true))
         spawn(Spike(this, Vec(228f, 329f), true))
-        spawn(SpikeBlock(this, Vec(168f, 264f)))
+        spawn(SpikeBlock(this, Vec(168f, 264f), maxWait = 30))
+        spawn(SpikeBlock(this, Vec(336f, 120f), maxWait = 30))
+        spawn(SpikeBlock(this, Vec(504f, 240f), maxWait = 60))
 
         spawnEssentialEntities()
     }

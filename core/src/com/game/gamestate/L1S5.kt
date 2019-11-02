@@ -4,17 +4,17 @@ import com.game.entity.*
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class L1S1(nextState: GameState, stageNo: Int): Stage(
+class L1S5(nextState: GameState, stageNo: Int): Stage(
         nextState,
         stageNo,
         "level1",
         "tileset1",
         900,
-        "THE BOMB WILL DETONATE",
-        "IN FIFTEEN SECONDS."
+        "YOU INTERMITTENTLY",
+        "BECOME INVISIBLE."
 ) {
 
-    override val player = Player(this, arrayOf(), Vec(64f, 34f))
+    override val player = Player(this, arrayOf(Modifiers.FADE), Vec(64f, 34f))
     override val door = Door(this, Vec(40f, 205f))
     override val bomb = Bomb(this, Vec(80f, 34f))
 

@@ -41,12 +41,23 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
     protected var facingRight = true
         private set
 
+    protected var timeAlive = 0f
+        private set
+    protected var framesAlive = 0
+        private set
+
     var isDead = false
         private set
 
     init {
         if (modifier(Modifiers.INV_GRAVITY)) {
             gravity = -0.2f
+        }
+
+        if (modifier(Modifiers.HYPERSPEED)) {
+            walkSpeed = 7.5f
+            walkAcceleration = 1.0f
+            jumpSpeed = 10f
         }
     }
 
@@ -58,9 +69,12 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
     }
 
     override fun entityUpdateLate(delta: Float) {
+        timeAlive += delta
+        framesAlive += 1
+
         val inLeft = Gdx.input.isKeyPressed(Input.Keys.A)
         val inRight = Gdx.input.isKeyPressed(Input.Keys.D)
-        val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE)
+        val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.W)
 
         checkTouchingWall()
 

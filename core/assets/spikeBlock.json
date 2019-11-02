@@ -1,0 +1,92 @@
+{ "frames": {
+   "spikeBlock 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 100
+   },
+   "spikeBlock 1.aseprite": {
+    "frame": { "x": 24, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 2.aseprite": {
+    "frame": { "x": 48, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 3.aseprite": {
+    "frame": { "x": 72, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 4.aseprite": {
+    "frame": { "x": 96, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 5.aseprite": {
+    "frame": { "x": 120, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 6.aseprite": {
+    "frame": { "x": 144, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 7.aseprite": {
+    "frame": { "x": 168, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   },
+   "spikeBlock 8.aseprite": {
+    "frame": { "x": 192, "y": 0, "w": 24, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 24, "h": 40 },
+    "sourceSize": { "w": 24, "h": 40 },
+    "duration": 15
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.14",
+  "image": "spikeBlock.png",
+  "format": "RGBA8888",
+  "size": { "w": 216, "h": 40 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "neutral", "from": 0, "to": 0, "direction": "forward" },
+   { "name": "move_nr", "from": 1, "to": 8, "direction": "forward" }
+  ],
+  "layers": [
+   { "name": "Layer", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
