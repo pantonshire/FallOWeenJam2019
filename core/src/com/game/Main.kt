@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.game.gamestate.GameStateManager
 import com.game.gamestate.MainMenu
-import com.game.gamestate.TestState
 import com.game.resources.AssetManagerWrapper
 
 class Main: ApplicationAdapter() {
@@ -18,6 +17,13 @@ class Main: ApplicationAdapter() {
         AssetManagerWrapper.INSTANCE.initialise()
         AssetManagerWrapper.INSTANCE.loadFont("editundo.ttf", 16)
         AssetManagerWrapper.INSTANCE.loadTexture("debug.png")
+        AssetManagerWrapper.INSTANCE.loadSound("select.wav")
+        AssetManagerWrapper.INSTANCE.loadSound("impact.wav")
+        AssetManagerWrapper.INSTANCE.loadSound("explosion.wav")
+        AssetManagerWrapper.INSTANCE.loadSound("jump.wav")
+        AssetManagerWrapper.INSTANCE.loadSound("death.wav")
+        AssetManagerWrapper.INSTANCE.loadSound("tick.wav")
+        AssetManagerWrapper.INSTANCE.loadSound("pass.wav")
         gsm.queueState(MainMenu())
     }
 
@@ -32,6 +38,13 @@ class Main: ApplicationAdapter() {
     override fun dispose() {
         AssetManagerWrapper.INSTANCE.unload("editundo.ttf")
         AssetManagerWrapper.INSTANCE.unload("debug.png")
+        AssetManagerWrapper.INSTANCE.unload("select.wav")
+        AssetManagerWrapper.INSTANCE.unload("impact.wav")
+        AssetManagerWrapper.INSTANCE.unload("explosion.wav")
+        AssetManagerWrapper.INSTANCE.unload("jump.wav")
+        AssetManagerWrapper.INSTANCE.unload("death.wav")
+        AssetManagerWrapper.INSTANCE.unload("tick.wav")
+        AssetManagerWrapper.INSTANCE.unload("pass.wav")
         gsm.onExit()
     }
 

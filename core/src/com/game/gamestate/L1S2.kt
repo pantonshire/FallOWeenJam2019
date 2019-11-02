@@ -11,7 +11,7 @@ class L1S2(nextState: GameState, stageNo: Int): Stage(
         "tileset1",
         900,
         "WHEN YOU JUMP",
-        "GRAVITY FLIPS."
+        "GRAVITY REVERSES."
 ) {
 
     override val player = Player(this, arrayOf(Modifiers.JUMP_INV_GRAVITY), Vec(64f, 34f))
@@ -24,8 +24,8 @@ class L1S2(nextState: GameState, stageNo: Int): Stage(
         }
 
         spawn(Spike(this, Vec(300f, 199f)))
-        spawn(Spike(this, Vec(180f, 161f), true))
-        spawn(Spike(this, Vec(204f, 161f), true))
+        spawn(Spike(this, Vec(228f, 161f), true))
+        spawn(Spike(this, Vec(252f, 161f), true))
         spawn(Spike(this, Vec(372f, 329f), true))
         spawn(Spike(this, Vec(252f, 329f), true))
         spawn(Spike(this, Vec(228f, 329f), true))

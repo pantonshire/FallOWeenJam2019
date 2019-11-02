@@ -6,6 +6,8 @@ import com.game.gamestate.World
 import com.game.level.Modifiers
 import com.game.maths.Maths
 import com.game.maths.Vec
+import com.game.random.Dice
+import com.game.resources.AssetManagerWrapper
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -141,6 +143,7 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             coyoteTime = 0
             jumpInputBuffer = 0
             onGround = false
+            AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
             if (modifier(Modifiers.JUMP_INV_GRAVITY)) {
                 gravity = -gravity
             } else {

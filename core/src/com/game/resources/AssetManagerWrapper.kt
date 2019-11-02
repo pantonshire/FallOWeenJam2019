@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
 import com.badlogic.gdx.assets.loaders.FileHandleResolver
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter
 import com.github.dwursteisen.libgdx.aseprite.Aseprite
@@ -74,6 +75,10 @@ class AssetManagerWrapper(private val missingTexturePath: String) {
         assetManager?.load(path, Aseprite::class.java)
     }
 
+    fun loadSound(path: String) {
+        assetManager?.load(path, Sound::class.java)
+    }
+
     fun fetchAnimation(path: String): Aseprite {
         assetManager!!.load(path, Aseprite::class.java)
         assetManager!!.finishLoadingAsset<Aseprite>(path)
@@ -97,22 +102,22 @@ class AssetManagerWrapper(private val missingTexturePath: String) {
         return true
     }
 
-    fun getTexture(path: String) = try {
+    fun getTexture(path: String): Texture = try {
         assetManager!!.get<Texture>(path)
     } catch (exception: GdxRuntimeException) {
         missingTexture!!
     }
 
-    fun getFont(path: String) = try {
+    fun getFont(path: String): BitmapFont = try {
         assetManager!!.get<BitmapFont>(path)
     } catch (exception: GdxRuntimeException) {
         BitmapFont()
     }
 
-    fun getAnimation(path: String) = try {
-        assetManager?.get<Aseprite>(path)
-    } catch (exception: GdxRuntimeException) {
-        null
-    }
+    fun getAnimation(path: String): Aseprite =
+            assetManager!!.get<Aseprite>(path)
+
+    fun getSound(path: String): Sound =
+        assetManager!!.get<Sound>(path)
 
 }

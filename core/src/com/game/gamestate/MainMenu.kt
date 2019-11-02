@@ -25,6 +25,7 @@ class MainMenu: GameState() {
             }
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if (option == 0) {
+                AssetManagerWrapper.INSTANCE.getSound("select.wav").play()
                 Main.gsm.queueState(LevelSelect())
             } else if (option == 1) {
                 Gdx.app.exit()

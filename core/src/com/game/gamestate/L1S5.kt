@@ -24,8 +24,8 @@ class L1S5(nextState: GameState, stageNo: Int): Stage(
         }
 
         spawn(Spike(this, Vec(300f, 199f)))
-        spawn(Spike(this, Vec(156f, 161f), true))
-        spawn(Spike(this, Vec(180f, 161f), true))
+        spawn(Spike(this, Vec(228f, 161f), true))
+        spawn(Spike(this, Vec(252f, 161f), true))
         spawn(Spike(this, Vec(372f, 329f), true))
         spawn(Spike(this, Vec(252f, 329f), true))
         spawn(Spike(this, Vec(228f, 329f), true))

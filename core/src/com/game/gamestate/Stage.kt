@@ -26,6 +26,9 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
     var outroTimer = 100
     var displayText = ""
 
+    var shownLine1 = false
+    var shownLine2 = false
+
     init {
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
         AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
@@ -43,17 +46,22 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
             if (player.isDead) {
                 done = true
                 displayText = "FAILURE"
+                AssetManagerWrapper.INSTANCE.getSound("death.wav").play()
             } else if (player.intersects(door)) {
                 player.retire()
                 done = true
                 won = true
                 displayText = "ESCAPED!"
+                AssetManagerWrapper.INSTANCE.getSound("pass.wav").play()
             } else {
                 framesLeft--
                 if (framesLeft <= 0) {
                     done = true
                     exploded = true
                     displayText = "KABOOM!"
+                    AssetManagerWrapper.INSTANCE.getSound("explosion.wav").play()
+                } else if(framesLeft % 60 == 0) {
+                    AssetManagerWrapper.INSTANCE.getSound("tick.wav").play(1.5f)
                 }
             }
         } else if (done) {
@@ -88,10 +96,14 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
             canvas.drawText("ESCAPE THE ROOM", Vec(canvas.resX / 2f, canvas.resY - 150f), font, scale = 3f, centreX = true)
 
             if (introTimer < 140) {
+                if (!shownLine1) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
+                shownLine1 = true
                 canvas.drawText(line1, Vec(canvas.resX / 2f, canvas.resY - 220f), font, scale = 2f, centreX = true)
             }
 
             if (introTimer < 100) {
+                if (!shownLine2) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
+                shownLine2 = true
                 canvas.drawText(line2, Vec(canvas.resX / 2f, canvas.resY - 260f), font, scale = 2f, centreX = true)
             }
 
