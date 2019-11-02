@@ -11,13 +11,14 @@ import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import com.game.tilemap.Tile
 import com.game.tilemap.TileMap
+import com.game.tilemap.TileMapFactory
 import java.awt.Point
 import kotlin.math.ceil
 import kotlin.math.max
 
 class TestState: World() {
 
-    override val map: TileMap = TileMap("tileset.png", 100, 100, 24)
+    override val map: TileMap = TileMapFactory.loadMap("maps/test.map", "tileset.png")
 
     val textLine1 = "THE BOMB WILL DETONATE"
     val textLine2 = "IN FIFTEEN SECONDS."
@@ -43,19 +44,6 @@ class TestState: World() {
         spawn(door)
 
         spawn(player)
-
-        for (x in 0..90) {
-            map.setTileAt(Point(x, 0), Tile.FLOOR)
-        }
-
-        map.setTileAt(Point(0, 1), Tile.INSIDE)
-        map.setTileAt(Point(4, 3), Tile.INSIDE)
-        map.setTileAt(Point(10, 0), Tile.INSIDE)
-        map.setTileAt(Point(10, 1), Tile.FLOOR)
-
-        for (y in 0..10) {
-            map.setTileAt(Point(11, y), Tile.RWALL)
-        }
     }
 
     override fun update(delta: Float) {
@@ -91,7 +79,8 @@ class TestState: World() {
 
             val secondsLeft = max(ceil((framesLeft / 60f)).toInt(), 0)
             val secondsStr = if (secondsLeft < 10) { "0$secondsLeft" } else { "$secondsLeft" }
-            canvas.drawText(secondsStr, Vec(20f, canvas.resY - 55f), font, scale = 4f)
+            canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture("blackBox.png"), Vec(45f, canvas.resY - 45f), width = 72f, height = 72f)
+            canvas.drawText(secondsStr, Vec(45f, canvas.resY - 45f), font, scale = 4f, centreX = true, centreY = true)
 
             if (done) {
                 if (exploded) {

@@ -6,6 +6,7 @@ import com.game.Main
 import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
+import com.game.score.Score
 
 class LevelSelect: GameState() {
 
@@ -25,6 +26,7 @@ class LevelSelect: GameState() {
             }
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if (option == 1) {
+                Score.newLevel()
                 Main.gsm.queueState(TestState())
             } else if (option == 5) {
                 Main.gsm.queueState(MainMenu())
