@@ -89,7 +89,7 @@ class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
             width: Float = texture.width.toFloat(),
             height: Float = texture.height.toFloat()
     ) {
-        drawTexture(texture, position - Vec(texture.width / 2f, texture.height / 2f), width, height)
+        drawTexture(texture, position - Vec(width / 2f, height / 2f), width, height)
     }
 
     fun drawRegion(

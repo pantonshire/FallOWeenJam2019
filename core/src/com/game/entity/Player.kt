@@ -42,7 +42,7 @@ class Player(world: World, position: Vec): Entity(world, Vec(10f, 19f), position
     var coyoteTime = 0
     var wallCoyoteTime = 0
 
-    var currentAnimation = "NONE"
+    var currentAnimation = "idle"
     var animationTime = 0f
     var facingRight = true
 

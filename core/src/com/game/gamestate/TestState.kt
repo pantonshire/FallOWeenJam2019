@@ -2,6 +2,7 @@ package com.game.gamestate
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
+import com.game.Main
 import com.game.entity.Bomb
 import com.game.entity.Door
 import com.game.entity.Player
@@ -28,7 +29,16 @@ class TestState: World() {
     var introTimer = 200
     var framesLeft = 900
 
+    var done = false
+    var won = false
+    var exploded = false
+    var outroTimer = 100
+    var displayText = ""
+
     init {
+        AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
+        AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
+
         spawn(bomb)
         spawn(door)
 
@@ -49,13 +59,26 @@ class TestState: World() {
     }
 
     override fun update(delta: Float) {
-        if (introTimer == 0) {
+        if (introTimer <= 0 && !done) {
             super.update(delta)
 
             if (player.intersects(door)) {
                 player.retire()
+                done = true
+                won = true
+                displayText = "ESCAPED!"
             } else {
                 framesLeft--
+                if (framesLeft <= 0) {
+                    done = true
+                    exploded = true
+                    displayText = "KABOOM."
+                }
+            }
+        } else if(done) {
+            outroTimer--
+            if (outroTimer <= 0) {
+                Main.gsm.queueState(MainMenu())
             }
         }
     }
@@ -70,6 +93,15 @@ class TestState: World() {
             val secondsStr = if (secondsLeft < 10) { "0$secondsLeft" } else { "$secondsLeft" }
             canvas.drawText(secondsStr, Vec(20f, canvas.resY - 55f), font, scale = 4f)
 
+            if (done) {
+                if (exploded) {
+                    canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture("explosion.png"), bomb.position, width = 32f * (101 - outroTimer), height = 32f * (101 - outroTimer))
+                }
+
+                canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture("blackBox.png"), Vec(canvas.resX / 2f, canvas.resY / 2f), width = 200f, height = 50f)
+                canvas.drawText(displayText, Vec(canvas.resX / 2f, canvas.resY / 2f), font, scale = 2f, centreX = true, centreY = true)
+            }
+
         } else {
             canvas.drawText("ESCAPE THE ROOM", Vec(canvas.resX / 2f, canvas.resY - 150f), font, scale = 3f, centreX = true)
 
@@ -83,6 +115,12 @@ class TestState: World() {
 
             introTimer--
         }
+    }
+
+    override fun onExit() {
+        super.onExit()
+        AssetManagerWrapper.INSTANCE.unload("blackBox.png")
+        AssetManagerWrapper.INSTANCE.unload("explosion.png")
     }
 
 }
