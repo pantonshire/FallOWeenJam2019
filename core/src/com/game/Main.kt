@@ -17,6 +17,7 @@ class Main: ApplicationAdapter() {
         AssetManagerWrapper.INSTANCE.initialise()
         AssetManagerWrapper.INSTANCE.loadFont("editundo.ttf", 16)
         AssetManagerWrapper.INSTANCE.loadTexture("debug.png")
+        AssetManagerWrapper.INSTANCE.loadTexture("particle.png")
         AssetManagerWrapper.INSTANCE.loadSound("select.wav")
         AssetManagerWrapper.INSTANCE.loadSound("impact.wav")
         AssetManagerWrapper.INSTANCE.loadSound("explosion.wav")
@@ -38,6 +39,7 @@ class Main: ApplicationAdapter() {
     override fun dispose() {
         AssetManagerWrapper.INSTANCE.unload("editundo.ttf")
         AssetManagerWrapper.INSTANCE.unload("debug.png")
+        AssetManagerWrapper.INSTANCE.unload("particle.png")
         AssetManagerWrapper.INSTANCE.unload("select.wav")
         AssetManagerWrapper.INSTANCE.unload("impact.wav")
         AssetManagerWrapper.INSTANCE.unload("explosion.wav")

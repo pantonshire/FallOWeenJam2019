@@ -12,7 +12,7 @@ class L2S3(nextState: GameState, stageNo: Int): Stage(
         "tileset1",
         720,
         "THE BOMB",
-        "IS YOUR EXIT."
+        "IS THE EXIT."
 ) {
 
     override val player = Player(this, arrayOf(), Vec(64f, 34f))

@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.Color
 import com.game.gamestate.World
 import com.game.graphics.Canvas
 import com.game.level.Modifiers
+import com.game.maths.Angle
 import com.game.maths.Maths
 import com.game.maths.Vec
+import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
 import kotlin.math.cos
 import kotlin.math.max
@@ -18,6 +20,8 @@ class Player(world: World, modifiers: Array<String>, position: Vec): Playable(wo
 
     var currentAnimation = "idle"
     var animationTime = 0f
+
+    var wasOnGround = true
 
     override fun entityUpdateLate(delta: Float) {
         if (onGround && currentAnimation == "jump_nr") {
@@ -35,6 +39,19 @@ class Player(world: World, modifiers: Array<String>, position: Vec): Playable(wo
         } else {
             animationTime += delta
         }
+
+        if (velocity.x != 0f && onGround && framesAlive % 10 == 0) {
+            world.queueSpawn(Particle(world, Vec(position.x, position.y - 8), Dice.FAIR.rollF(0.8f..1.2f), if (velocity > 0f) { Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.2f)) } else { Angle(Dice.FAIR.rollF(0f..0.2f)) }) )
+        }
+
+        if (onGround && !wasOnGround) {
+            for (i in 0..4) {
+                world.queueSpawn(Particle(world, Vec(position.x, position.y - 8), Dice.FAIR.rollF(0.2f..0.6f), Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.4f))))
+                world.queueSpawn(Particle(world, Vec(position.x, position.y - 8), Dice.FAIR.rollF(0.2f..0.6f), Angle(Dice.FAIR.rollF(0f..0.4f))))
+            }
+        }
+
+        wasOnGround = onGround
     }
 
     override fun draw(canvas: Canvas) {

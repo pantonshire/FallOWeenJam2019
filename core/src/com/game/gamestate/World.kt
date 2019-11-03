@@ -11,8 +11,12 @@ abstract class World: GameState() {
     abstract val player: Playable
 
     val entities = ArrayList<Entity>()
+    val toSpawn = ArrayList<Entity>()
 
     override fun update(delta: Float) {
+        this.entities.addAll(toSpawn)
+        this.toSpawn.forEach { it.onSpawn() }
+        this.toSpawn.clear()
         this.entities.forEach { it.update(delta) }
         this.entities.filter { it.retired }.forEach { it.onRemoved() }
         this.entities.removeIf { it.retired }
@@ -28,8 +32,12 @@ abstract class World: GameState() {
     }
 
     fun spawn(entity: Entity) {
-        this.entities.add(entity)
+        this.entities += entity
         entity.onSpawn()
+    }
+
+    fun queueSpawn(entity: Entity) {
+        this.toSpawn += entity
     }
 
 }
