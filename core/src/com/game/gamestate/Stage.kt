@@ -18,7 +18,8 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
 
     override val map: TileMap = TileMapFactory.loadMap("maps/${mapFile}.map", "${tileset}.png")
 
-    var introTimer = 200
+//    var introTimer = 200
+    var introTimer = 0
     var framesLeft = bombFrames
 
     var done = false
@@ -82,8 +83,8 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
 
             val secondsLeft = max(ceil((framesLeft / 60f)).toInt(), 0)
             val secondsStr = if (secondsLeft < 10) { "0$secondsLeft" } else { "$secondsLeft" }
-            canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture("blackBox.png"), Vec(45f, canvas.resY - 45f), width = 72f, height = 72f)
-            canvas.drawText(secondsStr, Vec(45f, canvas.resY - 45f), font, scale = 2f, centreX = true, centreY = true)
+            canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture("blackBox.png"), Vec(35f, canvas.resY - 35f), width = 48f, height = 48f)
+            canvas.drawText(secondsStr, Vec(35f, canvas.resY - 35f), font, scale = 2f, centreX = true, centreY = true)
 
             if (done) {
                 if (exploded) {

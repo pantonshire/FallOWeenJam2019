@@ -33,7 +33,8 @@ class LevelSelect: GameState() {
                 Score.newLevel()
                 Main.gsm.queueState(assembleLevel(0))
             } else if (option == 2) {
-
+                Score.newLevel()
+                Main.gsm.queueState(L2S1(this, 0))
             } else if (option == 4) {
                 Main.gsm.queueState(MainMenu())
             }

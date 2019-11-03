@@ -30,7 +30,7 @@ class Tutorial1: World() {
     init {
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
 
-        spawn(Spring(this, Vec(120f, 31f)))
+//        spawn(Spring(this, Vec(120f, 31f)))
 
         spawn(door)
         spawn(player)
