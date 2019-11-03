@@ -3,20 +3,24 @@ package com.game.gamestate
 import com.game.entity.*
 import com.game.level.Modifiers
 import com.game.maths.Vec
+import com.game.tilemap.TileMap
 
-class L2S1(nextState: GameState, stageNo: Int): Stage(
+class L2S3(nextState: GameState, stageNo: Int): Stage(
         nextState,
         stageNo,
         "level2",
         "tileset1",
         720,
-        "JUMP ON SPRINGS",
-        "FOR EXTRA HEIGHT."
+        "THE BOMB",
+        "IS YOUR EXIT."
 ) {
 
     override val player = Player(this, arrayOf(), Vec(64f, 34f))
-    override val door = Door(this, Vec(432f, 277f))
-    override val bomb = Bomb(this, Vec(80f, 274f))
+
+    val multiPurposeBomb = Bomb(this, Vec(80f, 274f))
+
+    override val door = multiPurposeBomb
+    override val bomb = multiPurposeBomb
 
     init {
         spawn(Spring(this, Vec(228f, 31f)))
@@ -35,7 +39,14 @@ class L2S1(nextState: GameState, stageNo: Int): Stage(
             spawn(Spike(this, Vec(468f + (24f * i), 31f)))
         }
 
+        spawn(Door(this, Vec(432f, 277f)))
+
         spawnEssentialEntities()
+    }
+
+    override fun spawnEssentialEntities() {
+        spawn(multiPurposeBomb)
+        spawn(player)
     }
 
 }

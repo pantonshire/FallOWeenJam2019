@@ -34,7 +34,7 @@ class LevelSelect: GameState() {
                 Main.gsm.queueState(assembleLevel(0))
             } else if (option == 2) {
                 Score.newLevel()
-                Main.gsm.queueState(L2S1(this, 0))
+                Main.gsm.queueState(assembleLevel(1))
             } else if (option == 4) {
                 Main.gsm.queueState(MainMenu())
             }
@@ -86,16 +86,25 @@ class LevelSelect: GameState() {
             else    -> L1S1(nextState, orderedStageNo)
         }
 
+        1 -> when (stageID) {
+            0       -> L2S1(nextState, orderedStageNo)
+            1       -> L2S2(nextState, orderedStageNo)
+            2       -> L2S3(nextState, orderedStageNo)
+            else    -> L2S1(nextState, orderedStageNo)
+        }
+
         else -> L1S1(nextState, orderedStageNo)
     }
 
     private fun getNoStages(levelID: Int) = when (levelID) {
         0       -> 7
+        1       -> 3
         else    -> 1
     }
 
     private fun getLevelName(levelID: Int) = when (levelID) {
         0       -> "LEVEL 1"
+        1       -> "LEVEL 2"
         else    -> "UNDEFINED"
     }
 

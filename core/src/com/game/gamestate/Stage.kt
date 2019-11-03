@@ -18,8 +18,7 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
 
     override val map: TileMap = TileMapFactory.loadMap("maps/${mapFile}.map", "${tileset}.png")
 
-//    var introTimer = 200
-    var introTimer = 0
+    var introTimer = 200
     var framesLeft = bombFrames
 
     var done = false
@@ -36,7 +35,7 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
         AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
     }
 
-    protected fun spawnEssentialEntities() {
+    protected open fun spawnEssentialEntities() {
         spawn(bomb)
         spawn(door)
         spawn(player)

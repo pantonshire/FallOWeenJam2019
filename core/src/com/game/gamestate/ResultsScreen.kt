@@ -50,7 +50,7 @@ class ResultsScreen(val levelName: String, val max: Int): GameState() {
             if (currentStage == 2) {
                 canvas.drawText(getPersonalisedResultMessage(), Vec(canvas.resX / 2f, canvas.resY - 240f), font, scale = 2f, centreX = true)
                 if (timeLeft == 0) {
-                    canvas.drawText("PRESS SPACE TO CONTINUE", Vec(canvas.resX / 2f, canvas.resY - 300f), font, scale = 2f, centreX = true)
+                    canvas.drawText("(PRESS SPACE TO CONTINUE)", Vec(canvas.resX / 2f, canvas.resY - 300f), font, scale = 2f, centreX = true)
                 }
             }
         }
