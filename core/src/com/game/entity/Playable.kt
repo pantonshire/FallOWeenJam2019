@@ -81,8 +81,8 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         timeAlive += delta
         framesAlive += 1
 
-        val inLeft = if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) } else { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) }
-        val inRight = if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) } else { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) }
+        val inLeft = if(modifier(Modifiers.ONLY_JUMP_MOVE)) { !onGround } else { true } && if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) } else { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) }
+        val inRight = if(modifier(Modifiers.ONLY_JUMP_MOVE)) { !onGround } else { true } && if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) } else { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) }
         val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
 
         checkTouchingWall()

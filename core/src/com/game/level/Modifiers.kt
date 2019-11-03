@@ -10,5 +10,6 @@ object Modifiers {
     const val INVERTED_CONTROLS = "inverted"
     const val ICE_PHYSICS = "ice"
     const val TINY_JUMP = "tinyjump"
+    const val ONLY_JUMP_MOVE = "jumpmove"
 
 }

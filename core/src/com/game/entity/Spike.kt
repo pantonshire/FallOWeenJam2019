@@ -5,7 +5,7 @@ import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 
-class Spike(world: World, position: Vec, inverted: Boolean = false): Entity(world, Vec(16f, 10f), position) {
+class Spike(world: World, position: Vec, val inverted: Boolean = false): Entity(world, Vec(12f, 8f), position) {
 
     private val texturePath = if (inverted) { "invertedSpike.png" } else { "spike.png" }
 
@@ -14,7 +14,7 @@ class Spike(world: World, position: Vec, inverted: Boolean = false): Entity(worl
     }
 
     override fun entityUpdateLate(delta: Float) {
-        if (intersects(world.player)) {
+        if (intersects(world.player) && world.player.velocity.y * if (inverted) { -1f } else { 1f } <= 0) {
             world.player.kill()
         }
     }
