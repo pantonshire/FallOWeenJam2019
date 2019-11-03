@@ -76,13 +76,13 @@ class Tutorial2: World() {
             if (introTimer < 140) {
                 if (!shownLine1) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
                 shownLine1 = true
-                canvas.drawText("LET\'S TRY SOMETHING", Vec(canvas.resX / 2f, canvas.resY - 220f), font, scale = 2f, centreX = true)
+                canvas.drawText("NOW LET\'S TRY", Vec(canvas.resX / 2f, canvas.resY - 220f), font, scale = 2f, centreX = true)
             }
 
             if (introTimer < 100) {
                 if (!shownLine2) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
                 shownLine2 = true
-                canvas.drawText("A LITTLE MORE ADVANCED.", Vec(canvas.resX / 2f, canvas.resY - 260f), font, scale = 2f, centreX = true)
+                canvas.drawText("SOME WALL JUMPS.", Vec(canvas.resX / 2f, canvas.resY - 260f), font, scale = 2f, centreX = true)
             }
 
             introTimer--

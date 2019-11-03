@@ -69,7 +69,7 @@ class Tutorial3: World() {
         } else if (done) {
             outroTimer--
             if (outroTimer <= 0) {
-                Main.gsm.queueState(if (won) { MainMenu() } else { Tutorial3() })
+                Main.gsm.queueState(if (won) { LevelSelect() } else { Tutorial3() })
             }
         }
     }
