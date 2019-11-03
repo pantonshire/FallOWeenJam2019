@@ -35,7 +35,7 @@ class MainMenu: GameState() {
 
     override fun draw(canvas: Canvas) {
         val font = AssetManagerWrapper.INSTANCE.getFont("editundo.ttf")
-        canvas.drawText("I NEED A TITLE", Vec(canvas.resX / 2f, canvas.resY - 120f), font, scale = 4f, centreX = true)
+        canvas.drawText("TINY ESCAPES", Vec(canvas.resX / 2f, canvas.resY - 120f), font, scale = 4f, centreX = true)
 
         canvas.drawText("PLAY", Vec(canvas.resX / 2f, canvas.resY - 200f), font, scale = 2f, centreX = true)
         canvas.drawText("EXIT", Vec(canvas.resX / 2f, canvas.resY - 250f), font, scale = 2f, centreX = true)

@@ -61,6 +61,13 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             wallJumpVSpeed = 4.5f
             walkAcceleration = 0.4f
         }
+
+        if (modifier(Modifiers.ICE_PHYSICS)) {
+            walkAcceleration = 0.075f
+            walkDeceleration = 0.05f
+            brakeDeceleration = 0.075f
+            midairBrakeDeceleration = 0.1f
+        }
     }
 
     fun modifier(name: String) =
@@ -201,6 +208,15 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         wallJumping = false
         onGround = false
         velocity = Vec(velocity.x, ySpeed)
+    }
+
+    fun forceFlipGravity() {
+        coyoteTime = 0
+        wallCoyoteTime = 0
+        jumpInputBuffer = 0
+        wallJumping = true
+        onGround = false
+        gravity = -gravity
     }
 
 }

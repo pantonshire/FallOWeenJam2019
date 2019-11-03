@@ -6,7 +6,7 @@ import com.game.maths.Vec
 import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
 
-class Spring(world: World, position: Vec, val ySpeed: Float = 7.5f): Entity(world, Vec(24f, 14f), position) {
+class Spring(world: World, position: Vec, val ySpeed: Float = 7.5f, val flip: Boolean = false): Entity(world, Vec(24f, 14f), position) {
 
     private val texturePath = "spring.png"
 
@@ -15,9 +15,13 @@ class Spring(world: World, position: Vec, val ySpeed: Float = 7.5f): Entity(worl
     }
 
     override fun entityUpdateLate(delta: Float) {
-        if (intersects(world.player) && world.player.velocity.y < 0f && !world.player.onGround) {
+        if (intersects(world.player) && world.player.velocity.y < 0f && !world.player.onGround && (!flip || world.player.gravity > 0f)) {
             AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
-            world.player.forceJump(ySpeed)
+            if (flip) {
+                world.player.forceFlipGravity()
+            } else {
+                world.player.forceJump(ySpeed)
+            }
         }
     }
 

@@ -32,7 +32,6 @@ class L2S3(nextState: GameState, stageNo: Int): Stage(
         spawn(SpikeBlock(this, Vec(276f, 264f), maxWait = 60))
         spawn(SpikeBlock(this, Vec(180f, 288f), maxWait = 120))
         spawn(Spike(this, Vec(396f, 151f)))
-        spawn(Spike(this, Vec(228f, 329f), inverted = true))
         spawn(Spike(this, Vec(540f, 329f), inverted = true))
 
         for (i in 0..4) {

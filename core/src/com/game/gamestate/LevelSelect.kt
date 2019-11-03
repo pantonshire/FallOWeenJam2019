@@ -27,16 +27,20 @@ class LevelSelect: GameState() {
             }
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             AssetManagerWrapper.INSTANCE.getSound("select.wav").play()
-            if (option == 0) {
-                Main.gsm.queueState(Tutorial1())
-            } else if (option == 1) {
-                Score.newLevel()
-                Main.gsm.queueState(assembleLevel(0))
-            } else if (option == 2) {
-                Score.newLevel()
-                Main.gsm.queueState(assembleLevel(1))
-            } else if (option == 4) {
-                Main.gsm.queueState(MainMenu())
+            when (option) {
+                0 -> Main.gsm.queueState(Tutorial1())
+                1 -> {
+                    Score.newLevel()
+                    Main.gsm.queueState(assembleLevel(0))
+                }
+                2 -> {
+                    Score.newLevel()
+                    Main.gsm.queueState(assembleLevel(1))
+                }
+                3 -> {
+                    Main.gsm.queueState(L2S7(this, 0))
+                }
+                4 -> Main.gsm.queueState(MainMenu())
             }
         }
     }
@@ -90,6 +94,10 @@ class LevelSelect: GameState() {
             0       -> L2S1(nextState, orderedStageNo)
             1       -> L2S2(nextState, orderedStageNo)
             2       -> L2S3(nextState, orderedStageNo)
+            3       -> L2S4(nextState, orderedStageNo)
+            4       -> L2S5(nextState, orderedStageNo)
+            5       -> L2S6(nextState, orderedStageNo)
+            6       -> L2S7(nextState, orderedStageNo)
             else    -> L2S1(nextState, orderedStageNo)
         }
 
@@ -98,7 +106,7 @@ class LevelSelect: GameState() {
 
     private fun getNoStages(levelID: Int) = when (levelID) {
         0       -> 7
-        1       -> 3
+        1       -> 7
         else    -> 1
     }
 

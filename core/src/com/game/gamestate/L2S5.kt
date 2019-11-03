@@ -4,17 +4,17 @@ import com.game.entity.*
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class L2S2(nextState: GameState, stageNo: Int): Stage(
+class L2S5(nextState: GameState, stageNo: Int): Stage(
         nextState,
         stageNo,
         "level2",
         "tileset1",
         720,
-        "GRAVITY IS",
-        "REVERSED."
+        "YOU INTERMITTENTLY",
+        "BECOME INVISIBLE."
 ) {
 
-    override val player = Player(this, arrayOf(Modifiers.INV_GRAVITY), Vec(64f, 34f))
+    override val player = Player(this, arrayOf(Modifiers.FADE), Vec(64f, 34f))
     override val door = Door(this, Vec(432f, 277f))
     override val bomb = Bomb(this, Vec(80f, 274f))
 
