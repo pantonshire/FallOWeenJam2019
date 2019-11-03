@@ -40,14 +40,17 @@ class Player(world: World, modifiers: Array<String>, position: Vec): Playable(wo
             animationTime += delta
         }
 
+        val gravDir = sign(gravity)
+        val particleY = position.y - (8 * gravDir)
+
         if (velocity.x != 0f && onGround && framesAlive % 10 == 0) {
-            world.queueSpawn(Particle(world, Vec(position.x, position.y - 8), Dice.FAIR.rollF(0.8f..1.2f), if (velocity > 0f) { Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.2f)) } else { Angle(Dice.FAIR.rollF(0f..0.2f)) }) )
+            world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.8f..1.2f), if (velocity > 0f) { Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.2f) * gravDir) } else { Angle(Dice.FAIR.rollF(0f..0.2f) * gravDir) }) )
         }
 
         if (onGround && !wasOnGround) {
             for (i in 0..4) {
-                world.queueSpawn(Particle(world, Vec(position.x, position.y - 8), Dice.FAIR.rollF(0.2f..0.6f), Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.4f))))
-                world.queueSpawn(Particle(world, Vec(position.x, position.y - 8), Dice.FAIR.rollF(0.2f..0.6f), Angle(Dice.FAIR.rollF(0f..0.4f))))
+                world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.2f..0.6f), Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.4f) * gravDir)))
+                world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.2f..0.6f), Angle(Dice.FAIR.rollF(0f..0.4f) * gravDir)))
             }
         }
 
