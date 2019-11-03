@@ -194,4 +194,13 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         touchingWallRight = world.map.isSolid(world.map.toMapPos(position + extents.xComponent() + checkDistance))
     }
 
+    fun forceJump(ySpeed: Float) {
+        coyoteTime = 0
+        wallCoyoteTime = 0
+        jumpInputBuffer = 0
+        wallJumping = false
+        onGround = false
+        velocity = Vec(velocity.x, ySpeed)
+    }
+
 }

@@ -11,7 +11,7 @@ import com.game.random.Dice
 
 class LevelSelect: GameState() {
 
-    private val maxOption = 5
+    private val maxOption = 4
     private var option = 0
 
     override fun update(delta: Float) {
@@ -32,7 +32,9 @@ class LevelSelect: GameState() {
             } else if (option == 1) {
                 Score.newLevel()
                 Main.gsm.queueState(assembleLevel(0))
-            } else if (option == 5) {
+            } else if (option == 2) {
+
+            } else if (option == 4) {
                 Main.gsm.queueState(MainMenu())
             }
         }
@@ -46,8 +48,7 @@ class LevelSelect: GameState() {
         canvas.drawText("LEVEL 1", Vec(canvas.resX / 2f, canvas.resY - 160f), font, scale = 2f, centreX = true)
         canvas.drawText("LEVEL 2", Vec(canvas.resX / 2f, canvas.resY - 200f), font, scale = 2f, centreX = true)
         canvas.drawText("LEVEL 3", Vec(canvas.resX / 2f, canvas.resY - 240f), font, scale = 2f, centreX = true)
-        canvas.drawText("LEVEL 4", Vec(canvas.resX / 2f, canvas.resY - 280f), font, scale = 2f, centreX = true)
-        canvas.drawText("BACK", Vec(canvas.resX / 2f, canvas.resY - 320f), font, scale = 2f, centreX = true)
+        canvas.drawText("BACK", Vec(canvas.resX / 2f, canvas.resY - 280f), font, scale = 2f, centreX = true)
 
         canvas.drawText(">          <", Vec(canvas.resX / 2f, canvas.resY - 120f - (40f * option)), font, scale = 2f, centreX = true)
     }

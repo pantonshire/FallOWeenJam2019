@@ -9,9 +9,9 @@ class L1S1(nextState: GameState, stageNo: Int): Stage(
         stageNo,
         "level1",
         "tileset1",
-        900,
+        720,
         "THE BOMB WILL DETONATE",
-        "IN FIFTEEN SECONDS."
+        "IN TWELVE SECONDS."
 ) {
 
     override val player = Player(this, arrayOf(), Vec(64f, 34f))

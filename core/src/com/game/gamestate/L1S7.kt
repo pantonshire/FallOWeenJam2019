@@ -9,7 +9,7 @@ class L1S7(nextState: GameState, stageNo: Int): Stage(
         stageNo,
         "level1",
         "tileset1",
-        900,
+        720,
         "YOU ARE VERY FAST",
         "AND THE CONTROLS ARE INVERTED."
 ) {

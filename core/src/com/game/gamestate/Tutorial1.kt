@@ -3,6 +3,7 @@ package com.game.gamestate
 import com.game.Main
 import com.game.entity.Door
 import com.game.entity.Player
+import com.game.entity.Spring
 import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
@@ -28,6 +29,8 @@ class Tutorial1: World() {
 
     init {
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
+
+        spawn(Spring(this, Vec(120f, 31f)))
 
         spawn(door)
         spawn(player)

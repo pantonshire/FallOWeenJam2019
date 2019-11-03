@@ -9,7 +9,7 @@ class L1S4(nextState: GameState, stageNo: Int): Stage(
         stageNo,
         "level1",
         "tileset1",
-        900,
+        720,
         "THE FLOOR",
         "IS BOUNCY."
 ) {

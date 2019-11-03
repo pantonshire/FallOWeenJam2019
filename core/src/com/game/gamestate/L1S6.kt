@@ -9,7 +9,7 @@ class L1S6(nextState: GameState, stageNo: Int): Stage(
         stageNo,
         "level1",
         "tileset1",
-        900,
+        720,
         "MORE CRUSHY BLOCKS",
         "AND THEY\'RE ANGRY."
 ) {

@@ -9,7 +9,7 @@ class L1S5(nextState: GameState, stageNo: Int): Stage(
         stageNo,
         "level1",
         "tileset1",
-        900,
+        720,
         "YOU INTERMITTENTLY",
         "BECOME INVISIBLE."
 ) {

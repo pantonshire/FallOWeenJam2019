@@ -8,7 +8,7 @@ class L1S3(nextState: GameState, stageNo: Int): Stage(
         stageNo,
         "level1",
         "tileset1",
-        900,
+        720,
         "YOU PLAY",
         "AS THE DOOR."
 ) {
