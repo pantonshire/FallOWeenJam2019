@@ -27,7 +27,9 @@ class LevelSelect: GameState() {
             }
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             AssetManagerWrapper.INSTANCE.getSound("select.wav").play()
-            if (option == 1) {
+            if (option == 0) {
+                Main.gsm.queueState(Tutorial1())
+            } else if (option == 1) {
                 Score.newLevel()
                 Main.gsm.queueState(assembleLevel(0))
             } else if (option == 5) {
