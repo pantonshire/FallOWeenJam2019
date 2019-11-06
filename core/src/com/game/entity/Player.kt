@@ -65,10 +65,6 @@ class Player(world: World, modifiers: Array<String>, position: Vec): Playable(wo
         } else {
             canvas.drawRegionCentred(animation[currentAnimation].getKeyFrame(animationTime), position, xScale = if(facingRight) { 1f } else { -1f }, yScale = sign(gravity))
         }
-
-//        canvas.drawTexture(AssetManagerWrapper.INSTANCE.getTexture("debug.png"), position)
-//        canvas.drawTexture(AssetManagerWrapper.INSTANCE.getTexture("debug.png"), position - extents.xComponent())
-//        canvas.drawTexture(AssetManagerWrapper.INSTANCE.getTexture("debug.png"), position + extents.xComponent())
     }
 
     override fun onRemoved() {

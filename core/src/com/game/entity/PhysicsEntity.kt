@@ -34,7 +34,9 @@ abstract class PhysicsEntity(world: World, size: Vec, var gravity: Float, initia
         if (translation.y != 0f) {
             val ySign = sign(translation.y)
             val row = world.map.toMapY(nextV.y + (extents.y * ySign))
-            for (column in getOccupyingTilesH(nextV)) {
+            /* Doing y collision detection relative to position with x translation added improves the accuracy
+               of corner collision detection. */
+            for (column in getOccupyingTilesH(nextV + finalTranslation.xComponent())) {
                 if (world.map.isSolid(Point(column, row))) {
                     finalTranslation = Vec(finalTranslation.x, 0f)
                     val correctedY = row * world.map.tileSize - (ySign * (extents.y + 0.00390625f)) - (world.map.tileSize * (ySign - 1) / 2f)
