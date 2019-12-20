@@ -34,7 +34,6 @@ class TutorialStage(level: Level, nextState: GameState, stageNo: Int, skipIntro:
     }
 
     init {
-        spawn(SpikeBlock(this, Vec(128f, 100f)))
         spawnEssentialEntities()
     }
 
