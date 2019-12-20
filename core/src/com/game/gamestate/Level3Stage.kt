@@ -1,10 +1,12 @@
 package com.game.gamestate
 
 import com.game.entity.*
+import com.game.level.Level
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class Level3Stage(nextState: GameState, stageNo: Int): Stage(
+class Level3Stage(level: Level, nextState: GameState, stageNo: Int, skipIntro: Boolean = false): Stage(
+        level,
         nextState,
         stageNo,
         "level3",
@@ -15,7 +17,8 @@ class Level3Stage(nextState: GameState, stageNo: Int): Stage(
             2 -> arrayOf("YOU ONLY HAVE", "TEN SECONDS.")
             3 -> arrayOf("YOU CAN ONLY MOVE", "IN MIDAIR.")
             else -> arrayOf("THE BOMB WILL DETONATE", "IN FIFTEEN SECONDS.")
-        }
+        },
+        skipIntro = skipIntro
 ) {
 
     override val player = Player(

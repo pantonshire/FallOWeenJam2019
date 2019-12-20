@@ -1,10 +1,12 @@
 package com.game.gamestate
 
 import com.game.entity.*
+import com.game.level.Level
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class Level2Stage(nextState: GameState, stageNo: Int): Stage(
+class Level2Stage(level: Level, nextState: GameState, stageNo: Int, skipIntro: Boolean = false): Stage(
+        level,
         nextState,
         stageNo,
         "level2",
@@ -18,7 +20,8 @@ class Level2Stage(nextState: GameState, stageNo: Int): Stage(
             5 -> arrayOf("MOVEMENT CONTROLS", "ARE INVERTED.")
             6 -> arrayOf("ICE", "PHYSICS.")
             else -> arrayOf("JUMP ON SPRINGS", "FOR EXTRA HEIGHT.")
-        }
+        },
+        skipIntro = skipIntro
 ) {
 
     override val player = Player(

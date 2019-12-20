@@ -9,7 +9,6 @@ import com.game.level.LevelFactory
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import com.game.level.Score
-import com.game.random.Dice
 
 class LevelSelect: GameState() {
 
@@ -30,7 +29,10 @@ class LevelSelect: GameState() {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             AssetManagerWrapper.INSTANCE.getSound("select.wav").play()
             when (option) {
-                0 -> Main.gsm.queueState(Tutorial1())
+                0 -> {
+                    Score.newLevel()
+                    Main.gsm.queueState(LevelFactory.assembleLevel(Level.TUTORIAL, baseCase = LevelSelect(), shuffle = false))
+                }
                 1 -> {
                     Score.newLevel()
                     Main.gsm.queueState(LevelFactory.assembleLevel(Level.JAM1))
