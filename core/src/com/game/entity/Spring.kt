@@ -6,27 +6,45 @@ import com.game.maths.Vec
 import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
 
-class Spring(world: World, position: Vec, val ySpeed: Float = 7.5f, val flip: Boolean = false): Entity(world, Vec(24f, 14f), position) {
+class Spring(
+        world: World,
+        position: Vec,
+        private val ySpeed: Float = 7.5f,
+        private val inverted: Boolean = false,
+        private val flip: Boolean = false
+): Entity(world, Vec(24f, 14f), position) {
 
-    private val texturePath = "spring.png"
+    private val direction = if (inverted) { -1f } else { 1f }
 
-    init {
-        AssetManagerWrapper.INSTANCE.loadTexture(texturePath)
-    }
+    private val animationPath = "spring"
+    private val animation = AssetManagerWrapper.INSTANCE.fetchAnimation(animationPath)
+
+    private var currentAnimation = "neutral"
+    private var animationTime = 0f
 
     override fun entityUpdateLate(delta: Float) {
-        if (intersects(world.player) && world.player.velocity.y < 0f && !world.player.onGround && (!flip || world.player.gravity > 0f)) {
+        animationTime += delta
+
+        if (intersects(world.player) && world.player.velocity.y * direction < 0f && !world.player.onGround && (!flip || world.player.gravity * direction > 0f)) {
             AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
+
             if (flip) {
                 world.player.forceFlipGravity()
             } else {
-                world.player.forceJump(ySpeed)
+                world.player.forceJump(ySpeed * direction)
             }
+
+            currentAnimation = "bounce_nr"
+            animationTime = 0f
+        }
+
+        if (currentAnimation == "bounce_nr" && animation[currentAnimation].isAnimationFinished(animationTime)) {
+            currentAnimation = "neutral"
         }
     }
 
     override fun draw(canvas: Canvas) {
-        canvas.drawTextureCentred(AssetManagerWrapper.INSTANCE.getTexture(texturePath), position)
+        canvas.drawRegionCentred(animation[currentAnimation].getKeyFrame(animationTime), position, yScale = direction)
     }
 
     override fun onSpawn() {
@@ -34,7 +52,7 @@ class Spring(world: World, position: Vec, val ySpeed: Float = 7.5f, val flip: Bo
     }
 
     override fun onRemoved() {
-        AssetManagerWrapper.INSTANCE.unload(texturePath)
+        AssetManagerWrapper.INSTANCE.unload(animationPath)
     }
 
 }

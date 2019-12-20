@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.game.Main
 import com.game.graphics.Canvas
+import com.game.level.Level
+import com.game.level.LevelFactory
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import com.game.level.Score
@@ -31,15 +33,15 @@ class LevelSelect: GameState() {
                 0 -> Main.gsm.queueState(Tutorial1())
                 1 -> {
                     Score.newLevel()
-                    Main.gsm.queueState(assembleLevel(0))
+                    Main.gsm.queueState(LevelFactory.assembleLevel(Level.JAM1))
                 }
                 2 -> {
                     Score.newLevel()
-                    Main.gsm.queueState(assembleLevel(1))
+                    Main.gsm.queueState(LevelFactory.assembleLevel(Level.JAM2))
                 }
                 3 -> {
                     Score.newLevel()
-                    Main.gsm.queueState(assembleLevel(2))
+                    Main.gsm.queueState(LevelFactory.assembleLevel(Level.JAM3))
                 }
                 4 -> Main.gsm.queueState(MainMenu())
             }
@@ -61,70 +63,6 @@ class LevelSelect: GameState() {
 
     override fun onExit() {
 
-    }
-
-    private fun assembleLevel(levelID: Int): GameState {
-        val noStages = getNoStages(levelID)
-        return getStage(levelID, 0, assembleLevelRecursive(levelID, MutableList(getNoStages(levelID) - 1) { it + 1 }, 1, ResultsScreen(getLevelName(levelID), noStages)), 0)
-    }
-
-    private fun assembleLevelRecursive(levelID: Int, stageIDs: MutableList<Int>, depth: Int, baseCase: GameState): GameState {
-        if (stageIDs.isEmpty()) {
-            return baseCase
-        }
-
-        val index = Dice.FAIR.roll(stageIDs.indices)
-        val stageID = stageIDs[index]
-        stageIDs.removeAt(index)
-        return getStage(levelID, stageID, assembleLevelRecursive(levelID, stageIDs, depth + 1, baseCase), depth)
-    }
-
-    private fun getStage(levelID: Int, stageID: Int, nextState: GameState, orderedStageNo: Int) = when (levelID) {
-        0 -> when (stageID) {
-            0       -> L1S1(nextState, orderedStageNo)
-            1       -> L1S2(nextState, orderedStageNo)
-            2       -> L1S3(nextState, orderedStageNo)
-            3       -> L1S4(nextState, orderedStageNo)
-            4       -> L1S5(nextState, orderedStageNo)
-            5       -> L1S6(nextState, orderedStageNo)
-            6       -> L1S7(nextState, orderedStageNo)
-            else    -> L1S1(nextState, orderedStageNo)
-        }
-
-        1 -> when (stageID) {
-            0       -> L2S1(nextState, orderedStageNo)
-            1       -> L2S2(nextState, orderedStageNo)
-            2       -> L2S3(nextState, orderedStageNo)
-            3       -> L2S4(nextState, orderedStageNo)
-            4       -> L2S5(nextState, orderedStageNo)
-            5       -> L2S6(nextState, orderedStageNo)
-            6       -> L2S7(nextState, orderedStageNo)
-            else    -> L2S1(nextState, orderedStageNo)
-        }
-
-        2 -> when (stageID) {
-            0       -> L3S1(nextState, orderedStageNo)
-            1       -> L3S2(nextState, orderedStageNo)
-            2       -> L3S3(nextState, orderedStageNo)
-            3       -> L3S4(nextState, orderedStageNo)
-            else    -> L3S1(nextState, orderedStageNo)
-        }
-
-        else -> L1S1(nextState, orderedStageNo)
-    }
-
-    private fun getNoStages(levelID: Int) = when (levelID) {
-        0       -> 7
-        1       -> 7
-        2       -> 4
-        else    -> 1
-    }
-
-    private fun getLevelName(levelID: Int) = when (levelID) {
-        0       -> "LEVEL 1"
-        1       -> "LEVEL 2"
-        2       -> "LEVEL 3"
-        else    -> "UNDEFINED"
     }
 
 }

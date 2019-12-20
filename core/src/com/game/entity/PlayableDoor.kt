@@ -32,7 +32,7 @@ class PlayableDoor(world: World, modifiers: Array<String>, position: Vec): Playa
             world.queueSpawn(Particle(world, Vec(position.x, position.y - 11), Dice.FAIR.rollF(0.4f..0.8f), if (velocity > 0f) { Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.2f)) } else { Angle(Dice.FAIR.rollF(0f..0.2f)) }) )
         }
 
-        if (onGround && !wasOnGround) {
+        if ((onGround || justJumped) && !wasOnGround) {
             for (i in 0..4) {
                 world.queueSpawn(Particle(world, Vec(position.x, position.y - 11), Dice.FAIR.rollF(0.4f..1f), Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.5f))))
                 world.queueSpawn(Particle(world, Vec(position.x, position.y - 11), Dice.FAIR.rollF(0.4f..1f), Angle(Dice.FAIR.rollF(0f..0.5f))))

@@ -37,6 +37,7 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
     protected var jumpInputBuffer = 0
     protected var coyoteTime = 0
     protected var wallCoyoteTime = 0
+    protected var justJumped = false
 
     protected var action = "idle"
         private set
@@ -77,12 +78,17 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         isDead = true
     }
 
+    override fun entityUpdateEarly(delta: Float) {
+        super.entityUpdateEarly(delta)
+        justJumped = false
+    }
+
     override fun entityUpdateLate(delta: Float) {
         timeAlive += delta
         framesAlive += 1
 
-        val inLeft = if(modifier(Modifiers.ONLY_JUMP_MOVE)) { !onGround } else { true } && if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) } else { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) }
-        val inRight = if(modifier(Modifiers.ONLY_JUMP_MOVE)) { !onGround } else { true } && if (modifier(Modifiers.INVERTED_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) } else { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) }
+        val inLeft = if(modifier(Modifiers.ONLY_JUMP_MOVE)) { !onGround } else { true } && if (modifier(Modifiers.INV_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) } else { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) }
+        val inRight = if(modifier(Modifiers.ONLY_JUMP_MOVE)) { !onGround } else { true } && if (modifier(Modifiers.INV_CONTROLS)) { Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) } else { Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) }
         val inJump = Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)
 
         checkTouchingWall()
@@ -150,6 +156,7 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             coyoteTime = 0
             jumpInputBuffer = 0
             onGround = false
+            justJumped = true
             AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
             if (modifier(Modifiers.JUMP_INV_GRAVITY)) {
                 gravity = -gravity
@@ -218,5 +225,8 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
         onGround = false
         gravity = -gravity
     }
+
+//    abstract fun spawnWalkParticles()
+//    abstract fun spawnLandParticles()
 
 }

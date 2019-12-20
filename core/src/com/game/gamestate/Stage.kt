@@ -11,7 +11,14 @@ import com.game.tilemap.TileMapFactory
 import kotlin.math.ceil
 import kotlin.math.max
 
-abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String, tileset: String, bombFrames: Int, val line1: String, val line2: String): World() {
+abstract class Stage(
+        val nextState: GameState,
+        val stageNo: Int,
+        mapFile: String,
+        tileset: String,
+        bombFrames: Int,
+        val intro: Array<String>
+): World() {
 
     abstract val door: Entity
     abstract val bomb: Entity
@@ -31,6 +38,7 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
     var shownLine2 = false
 
     init {
+        AssetManagerWrapper.INSTANCE.loadTexture("particle.png")
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
         AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
     }
@@ -100,13 +108,13 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
             if (introTimer < 140) {
                 if (!shownLine1) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
                 shownLine1 = true
-                canvas.drawText(line1, Vec(canvas.resX / 2f, canvas.resY - 220f), font, scale = 2f, centreX = true)
+                canvas.drawText(intro[0], Vec(canvas.resX / 2f, canvas.resY - 220f), font, scale = 2f, centreX = true)
             }
 
             if (introTimer < 100) {
                 if (!shownLine2) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
                 shownLine2 = true
-                canvas.drawText(line2, Vec(canvas.resX / 2f, canvas.resY - 260f), font, scale = 2f, centreX = true)
+                canvas.drawText(intro[1], Vec(canvas.resX / 2f, canvas.resY - 260f), font, scale = 2f, centreX = true)
             }
 
             introTimer--
@@ -115,6 +123,7 @@ abstract class Stage(val nextState: GameState, val stageNo: Int, mapFile: String
 
     override fun onExit() {
         super.onExit()
+        AssetManagerWrapper.INSTANCE.unload("particle.png")
         AssetManagerWrapper.INSTANCE.unload("blackBox.png")
         AssetManagerWrapper.INSTANCE.unload("explosion.png")
     }

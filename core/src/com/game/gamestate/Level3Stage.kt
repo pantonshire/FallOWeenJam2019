@@ -4,17 +4,30 @@ import com.game.entity.*
 import com.game.level.Modifiers
 import com.game.maths.Vec
 
-class L3S1(nextState: GameState, stageNo: Int): Stage(
+class Level3Stage(nextState: GameState, stageNo: Int): Stage(
         nextState,
         stageNo,
         "level3",
         "tileset1",
-        900,
-        "THE BOMB WILL DETONATE",
-        "IN FIFTEEN SECONDS."
+        if (stageNo == 2) { 600 } else { 900 },
+        when (stageNo) {
+            1 -> arrayOf("WHEN YOU JUMP", "GRAVITY REVERSES.")
+            2 -> arrayOf("YOU ONLY HAVE", "TEN SECONDS.")
+            3 -> arrayOf("YOU CAN ONLY MOVE", "IN MIDAIR.")
+            else -> arrayOf("THE BOMB WILL DETONATE", "IN FIFTEEN SECONDS.")
+        }
 ) {
 
-    override val player = Player(this, arrayOf(), Vec(64f, 250f))
+    override val player = Player(
+            this,
+            when (stageNo) {
+                1 -> arrayOf(Modifiers.JUMP_INV_GRAVITY)
+                3 -> arrayOf(Modifiers.ONLY_JUMP_MOVE)
+                else -> arrayOf()
+            },
+            Vec(64f, 250f)
+    )
+
     override val door = Door(this, Vec(40f, 61f))
     override val bomb = Bomb(this, Vec(90f, 250f))
 
