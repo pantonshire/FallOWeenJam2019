@@ -2,8 +2,11 @@ package com.game
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Graphics
 import com.badlogic.gdx.graphics.GL20
+import com.game.audio.AudioManager
 import com.game.gamestate.GameStateManager
+import com.game.gamestate.LaunchState
 import com.game.gamestate.MainMenu
 import com.game.resources.AssetManagerWrapper
 
@@ -11,12 +14,20 @@ class Main: ApplicationAdapter() {
 
     companion object {
         val gsm = GameStateManager()
+
+        fun exitGame() {
+            AudioManager.setAudioEnabled(false)
+            Gdx.app.exit()
+        }
     }
 
     override fun create() {
         AssetManagerWrapper.INSTANCE.initialise()
+
         AssetManagerWrapper.INSTANCE.loadFont("editundo.ttf", 16)
         AssetManagerWrapper.INSTANCE.loadTexture("debug.png")
+        AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
+        AssetManagerWrapper.INSTANCE.loadTexture("whiteBox.png")
         AssetManagerWrapper.INSTANCE.loadTexture("particle.png")
         AssetManagerWrapper.INSTANCE.loadSound("select.wav")
         AssetManagerWrapper.INSTANCE.loadSound("impact.wav")
@@ -25,7 +36,8 @@ class Main: ApplicationAdapter() {
         AssetManagerWrapper.INSTANCE.loadSound("death.wav")
         AssetManagerWrapper.INSTANCE.loadSound("tick.wav")
         AssetManagerWrapper.INSTANCE.loadSound("pass.wav")
-        gsm.queueState(MainMenu())
+
+        gsm.queueState(LaunchState())
     }
 
     override fun render() {
@@ -39,6 +51,8 @@ class Main: ApplicationAdapter() {
     override fun dispose() {
         AssetManagerWrapper.INSTANCE.unload("editundo.ttf")
         AssetManagerWrapper.INSTANCE.unload("debug.png")
+        AssetManagerWrapper.INSTANCE.unload("blackBox.png")
+        AssetManagerWrapper.INSTANCE.unload("whiteBox.png")
         AssetManagerWrapper.INSTANCE.unload("particle.png")
         AssetManagerWrapper.INSTANCE.unload("select.wav")
         AssetManagerWrapper.INSTANCE.unload("impact.wav")
@@ -48,6 +62,10 @@ class Main: ApplicationAdapter() {
         AssetManagerWrapper.INSTANCE.unload("tick.wav")
         AssetManagerWrapper.INSTANCE.unload("pass.wav")
         gsm.onExit()
+    }
+
+    override fun resize(width: Int, height: Int) {
+        gsm.resize(width, height)
     }
 
 }

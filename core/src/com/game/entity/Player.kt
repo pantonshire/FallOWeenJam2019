@@ -3,14 +3,13 @@ package com.game.entity
 import com.badlogic.gdx.graphics.Color
 import com.game.gamestate.World
 import com.game.graphics.Canvas
-import com.game.level.Modifiers
+import com.game.gameplay.Modifiers
 import com.game.maths.Angle
 import com.game.maths.Maths
 import com.game.maths.Vec
 import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
 import kotlin.math.cos
-import kotlin.math.max
 import kotlin.math.sign
 
 class Player(world: World, modifiers: Array<String>, position: Vec): Playable(world, Vec(10f, 19f), modifiers, position) {

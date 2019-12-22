@@ -11,12 +11,18 @@ abstract class GameState {
 
     abstract fun draw(canvas: Canvas)
 
+    abstract fun onEnter()
+
     abstract fun onExit()
 
     fun render() {
         this.canvas.beginBatch()
         this.draw(this.canvas)
         this.canvas.endBatch()
+    }
+
+    fun resize(width: Int, height: Int) {
+        this.canvas.updateViewport(width, height)
     }
 
     fun toScreenPos(worldPos: Vec) =

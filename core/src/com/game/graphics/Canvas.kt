@@ -8,16 +8,23 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.game.maths.Angle
 import com.game.maths.Vec
+import kotlin.math.floor
 
 class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
+
+    val centreX = Vec(resX / 2f, 0f)
+    val centreY = Vec(0f, resY / 2f)
+    val centre = centreX + centreY
 
     private val spriteBatch = SpriteBatch()
     private val camera = OrthographicCamera()
 
-    private var viewport = FitViewport(resX, resY, camera)
+    private var viewport = PixelPerfectViewport(Vec(resX, resY), camera)
 
     var colour: Color
         get() = spriteBatch.color

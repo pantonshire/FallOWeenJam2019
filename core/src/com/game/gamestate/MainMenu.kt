@@ -2,46 +2,38 @@ package com.game.gamestate
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
 import com.game.Main
+import com.game.gameplay.Level
+import com.game.gameplay.LevelFactory
 import com.game.graphics.Canvas
+import com.game.maths.Angle
+import com.game.maths.Maths
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
+import com.game.ui.Flabel
+import com.game.ui.Label
+import com.game.ui.TextOption
 
-class MainMenu: GameState() {
+class MainMenu: OptionsMenuScreen(null) {
 
-    private val maxOption = 1
-    private var option = 0
+    init {
+        val font = AssetManagerWrapper.INSTANCE.getFont("editundo.ttf")
 
-    override fun update(delta: Float) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            option--
-            if (option < 0) {
-                option = maxOption
-            }
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            option++
-            if (option > maxOption) {
-                option = 0
-            }
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            if (option == 0) {
-                AssetManagerWrapper.INSTANCE.getSound("select.wav").play()
-                Main.gsm.queueState(LevelSelect())
-            } else if (option == 1) {
-                Gdx.app.exit()
-            }
-        }
+        addElement(Flabel(this, Vec(0f, 80f), font, "TINY ESCAPES", 4f, Color.WHITE, true, true, 120, 4f))
+        addElement(Label(this, Vec(0f, 20f), font, "BY TOM PANTON", 2f, Color.WHITE, true, true))
+
+        addOption(TextOption(this, Vec(0f, -60f), font, "PLAY", 2f, true, true) {
+            Main.gsm.queueState(LevelSelect())
+        })
+
+        addOption(TextOption(this, Vec(0f, -100f), font, "QUIT", 2f, true, true) {
+           Main.exitGame()
+        })
     }
 
-    override fun draw(canvas: Canvas) {
-        val font = AssetManagerWrapper.INSTANCE.getFont("editundo.ttf")
-        canvas.drawText("TINY ESCAPES", Vec(canvas.resX / 2f, canvas.resY - 120f), font, scale = 4f, centreX = true)
-        canvas.drawText("BY TOM PANTON", Vec(canvas.resX / 2f, canvas.resY - 160f), font, scale = 2f, centreX = true)
+    override fun onEnter() {
 
-        canvas.drawText("PLAY", Vec(canvas.resX / 2f, canvas.resY - 240f), font, scale = 2f, centreX = true)
-        canvas.drawText("EXIT", Vec(canvas.resX / 2f, canvas.resY - 280f), font, scale = 2f, centreX = true)
-
-        canvas.drawText(">      <", Vec(canvas.resX / 2f, canvas.resY - 240f - (40f * option)), font, scale = 2f, centreX = true)
     }
 
     override fun onExit() {

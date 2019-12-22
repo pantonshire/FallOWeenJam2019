@@ -1,8 +1,8 @@
 package com.game.gamestate
 
 import com.game.entity.*
-import com.game.level.Level
-import com.game.level.Modifiers
+import com.game.gameplay.Level
+import com.game.gameplay.Modifiers
 import com.game.maths.Vec
 
 class Level1Stage(level: Level, nextState: GameState, stageNo: Int, skipIntro: Boolean = false): Stage(

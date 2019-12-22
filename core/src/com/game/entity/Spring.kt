@@ -1,5 +1,7 @@
 package com.game.entity
 
+import com.game.audio.AudioManager
+import com.game.audio.SoundCategory
 import com.game.gamestate.World
 import com.game.graphics.Canvas
 import com.game.maths.Vec
@@ -26,7 +28,8 @@ class Spring(
         animationTime += delta
 
         if (intersects(world.player) && world.player.velocity.y * direction < 0f && !world.player.onGround && (!flip || world.player.gravity * direction > 0f)) {
-            AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
+            AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("jump.wav"),
+                    SoundCategory.GAMEPLAY, 0.4f, Dice.FAIR.rollF(0.7f..1.3f))
 
             if (flip) {
                 world.player.forceFlipGravity()

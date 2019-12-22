@@ -1,11 +1,16 @@
 package com.game.gamestate
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.game.Main
+import com.game.audio.AudioManager
+import com.game.audio.SoundCategory
 import com.game.entity.Entity
 import com.game.graphics.Canvas
-import com.game.level.Level
-import com.game.level.Score
+import com.game.gameplay.Level
+import com.game.gameplay.Score
 import com.game.maths.Vec
+import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
 import com.game.tilemap.TileMap
 import com.game.tilemap.TileMapFactory
@@ -15,7 +20,7 @@ import kotlin.math.max
 abstract class Stage(
         private val level: Level,
         private val nextState: GameState,
-        public val stageNo: Int,
+        protected val stageNo: Int,
         mapFile: String,
         tileset: String,
         bombFrames: Int,
@@ -45,44 +50,50 @@ abstract class Stage(
     private var shownLine1 = false
     private var shownLine2 = false
 
-    init {
+    override fun onEnter() {
         AssetManagerWrapper.INSTANCE.loadTexture("particle.png")
         AssetManagerWrapper.INSTANCE.loadTexture("blackBox.png")
         AssetManagerWrapper.INSTANCE.loadTexture("explosion.png")
     }
 
     protected open fun spawnEssentialEntities() {
-        if (bomb != null) { spawn(bomb!!) }
+        if (bomb != null) {
+            spawn(bomb!!)
+        }
         spawn(door)
         spawn(player)
     }
 
     override fun update(delta: Float) {
         if (introTimer <= 0 && !done) {
-            super.update(delta)
-            if (player.isDead) {
-                done = true
-                displayText = "FAILURE"
-                outroTimer = outroLength
-                AssetManagerWrapper.INSTANCE.getSound("death.wav").play()
-            } else if (player.intersects(door)) {
-                Score.winStage()
-                player.retire()
-                done = true
-                won = true
-                displayText = "ESCAPED!"
-                outroTimer = outroLength
-                AssetManagerWrapper.INSTANCE.getSound("pass.wav").play()
-            } else if (hasTimeLimit) {
-                framesLeft--
-                if (framesLeft <= 0) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+                Main.gsm.queueMenu(PauseScreen(null))
+            } else {
+                super.update(delta)
+                if (player.isDead) {
                     done = true
-                    exploded = true
-                    displayText = "KABOOM!"
-                    outroTimer = explosionLength
-                    AssetManagerWrapper.INSTANCE.getSound("explosion.wav").play()
-                } else if(framesLeft % 60 == 0) {
-                    AssetManagerWrapper.INSTANCE.getSound("tick.wav").play(1.5f)
+                    displayText = "FAILURE"
+                    outroTimer = outroLength
+                    AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("death.wav"), SoundCategory.GAMEPLAY)
+                } else if (player.intersects(door)) {
+                    Score.onStageWon()
+                    player.retire()
+                    done = true
+                    won = true
+                    displayText = "ESCAPED!"
+                    outroTimer = outroLength
+                    AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("pass.wav"), SoundCategory.GAMEPLAY)
+                } else if (hasTimeLimit) {
+                    framesLeft--
+                    if (framesLeft <= 0) {
+                        done = true
+                        exploded = true
+                        displayText = "KABOOM!"
+                        outroTimer = explosionLength
+                        AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("explosion.wav"), SoundCategory.GAMEPLAY)
+                    } else if (framesLeft % 60 == 0) {
+                        AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("tick.wav"), SoundCategory.GAMEPLAY, 1.5f)
+                    }
                 }
             }
         } else if (done) {
@@ -128,14 +139,20 @@ abstract class Stage(
             canvas.drawText("ESCAPE THE ROOM", Vec(canvas.resX / 2f, canvas.resY - 150f), font, scale = 3f, centreX = true)
 
             if (introTimer < 140) {
-                if (!shownLine1) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
-                shownLine1 = true
+                if (!shownLine1) {
+                    AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("impact.wav"), SoundCategory.GAMEPLAY)
+                    shownLine1 = true
+                }
+
                 canvas.drawText(intro[0], Vec(canvas.resX / 2f, canvas.resY - 220f), font, scale = 2f, centreX = true)
             }
 
             if (introTimer < 100) {
-                if (!shownLine2) { AssetManagerWrapper.INSTANCE.getSound("impact.wav").play() }
-                shownLine2 = true
+                if (!shownLine2) {
+                    AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("impact.wav"), SoundCategory.GAMEPLAY)
+                    shownLine2 = true
+                }
+
                 canvas.drawText(intro[1], Vec(canvas.resX / 2f, canvas.resY - 260f), font, scale = 2f, centreX = true)
             }
 

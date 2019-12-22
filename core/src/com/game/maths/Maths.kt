@@ -33,9 +33,17 @@ object Maths {
             abs(x) < error
 
 
-    fun contSqrtCos(radians: Float): Float {
-        val cosine = cos(radians)
+    fun contSqrtCos(angle: Angle): Float {
+        val cosine = angle.cos()
         return sqrt(abs(cosine)) * sign(cosine)
     }
+
+    /** Varies sinusoidally from 0 to 1, starting at 0 when radians is 0. */
+    fun inhale(angle: Angle) =
+            clamp((1f - angle.cos()) / 2f, 0f, 1f)
+
+    /** Varies sinusoidally from 0 to 1, starting at 1 when radians is 0. */
+    fun exhale(angle: Angle) =
+            clamp((1f + angle.cos()) / 2f, 0f, 1f)
 
 }

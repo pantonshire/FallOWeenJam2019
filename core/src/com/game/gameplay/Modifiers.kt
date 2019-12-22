@@ -1,4 +1,4 @@
-package com.game.level
+package com.game.gameplay
 
 object Modifiers {
 

@@ -2,8 +2,10 @@ package com.game.entity
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.game.audio.AudioManager
+import com.game.audio.SoundCategory
 import com.game.gamestate.World
-import com.game.level.Modifiers
+import com.game.gameplay.Modifiers
 import com.game.maths.Maths
 import com.game.maths.Vec
 import com.game.random.Dice
@@ -157,7 +159,10 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             jumpInputBuffer = 0
             onGround = false
             justJumped = true
-            AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
+
+            AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("jump.wav"),
+                    SoundCategory.GAMEPLAY, 0.4f, Dice.FAIR.rollF(0.7f..1.3f))
+
             if (modifier(Modifiers.JUMP_INV_GRAVITY)) {
                 gravity = -gravity
             } else {
@@ -169,7 +174,10 @@ abstract class Playable(world: World, size: Vec, val modifiers: Array<String>, i
             jumpInputBuffer = 0
             wallJumping = true
             onGround = false
-            AssetManagerWrapper.INSTANCE.getSound("jump.wav").play(0.4f, Dice.FAIR.rollF(0.7f..1.3f), 0f)
+
+            AudioManager.playSound(AssetManagerWrapper.INSTANCE.getSound("jump.wav"),
+                    SoundCategory.GAMEPLAY, 0.4f, Dice.FAIR.rollF(0.7f..1.3f))
+
             wallSliding = false
             if (modifier(Modifiers.JUMP_INV_GRAVITY)) {
                 gravity = -gravity
