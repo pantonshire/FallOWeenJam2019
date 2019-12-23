@@ -2,7 +2,6 @@ package com.game.tilemap
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.game.graphics.Canvas
-import com.game.maths.Maths
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import java.awt.Point

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.game.gamestate.MenuScreen
 import com.game.graphics.Canvas
 import com.game.maths.Vec
+import com.game.settings.Settings
 import com.game.time.Stopwatch
 
 open class Flabel(
@@ -25,7 +26,14 @@ open class Flabel(
 
     override fun draw(canvas: Canvas, origin: Vec) {
         stopwatch.tick()
-        super.draw(canvas, origin + Vec(0f, amplitude * stopwatch.angle(timePeriodTicks).sin()))
+
+        val offset = if (Settings.getBool("ui-movement")) {
+            Vec(0f, amplitude * stopwatch.angle(timePeriodTicks).sin())
+        } else {
+            Vec.NULL
+        }
+
+        super.draw(canvas, origin + offset)
     }
 
 }

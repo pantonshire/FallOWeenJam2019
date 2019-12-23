@@ -8,12 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.math.Vector3
-import com.badlogic.gdx.utils.viewport.FitViewport
 import com.game.maths.Angle
 import com.game.maths.Vec
-import kotlin.math.floor
 
 class Canvas(val resX: Float = 640f, val resY: Float = 360f) {
 

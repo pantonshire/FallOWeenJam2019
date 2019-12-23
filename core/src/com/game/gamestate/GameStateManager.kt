@@ -1,61 +1,96 @@
 package com.game.gamestate
 
+import java.util.*
+
 class GameStateManager(initialState: GameState? = null) {
 
-    private var currentState: GameState? = initialState
-    private var nextState: GameState? = null
-    private var currentMenu: MenuScreen? = null
-    private var nextMenu: MenuScreen? = null
-    private var menuQueued: Boolean = false
+    private var activeStates = Stack<GameState>()
+    private var pushStates = LinkedList<GameState>()
+    private var replaceState: GameState? = null
+    private var collapseState: GameState? = null
+    private var popQueued = false
 
-    fun queueState(state: GameState) {
-        this.nextState = state
+    init {
+        if (initialState != null) {
+            pushState(initialState)
+        }
     }
 
-    fun queueMenu(menu: MenuScreen?) {
-        this.nextMenu = menu
-        this.menuQueued = true
+    private fun pushState(state: GameState) {
+        activeStates.push(state)
+        state.onEnter()
     }
 
-    fun isActive(state: GameState) =
-            this.currentState == state
+    private fun popState() {
+        if (activeStates.isNotEmpty()) {
+            activeStates.pop().onExit()
+        }
+    }
+
+    private fun clearStates() {
+        while (activeStates.isNotEmpty()) {
+            activeStates.pop().onExit()
+        }
+    }
+
+    private fun topState() = if (activeStates.isEmpty()) {
+        null
+    } else {
+        activeStates.peek()
+    }
+
+    fun queueCollapseTo(state: GameState) {
+        collapseState = state
+    }
+
+    fun queueReplaceTop(state: GameState) {
+        replaceState = state
+    }
+
+    fun queuePush(state: GameState) {
+        pushStates.add(state)
+    }
+
+    fun queuePop() {
+        popQueued = true
+    }
 
     fun update(delta: Float) {
-        if (this.menuQueued) {
-            this.currentMenu?.onExit()
-            this.currentMenu = this.nextMenu
-            this.currentMenu?.onEnter()
-            this.menuQueued = false
+        if (replaceState != null) {
+            popState()
+            pushState(replaceState!!)
+            replaceState = null
         }
 
-        if (this.nextState != null) {
-            this.currentState?.onExit()
-            this.currentState = this.nextState
-            this.nextState = null
-            this.currentState!!.onEnter()
+        if (popQueued) {
+            popState()
+            popQueued = false
         }
 
-        if (this.currentMenu != null) {
-            this.currentMenu!!.update(delta)
-        } else if (this.currentState != null) {
-            this.currentState!!.update(delta)
+        if (pushStates.isNotEmpty()) {
+            pushStates.forEach { pushState(it) }
+            pushStates.clear()
         }
+
+        if (collapseState != null) {
+            clearStates()
+            pushState(collapseState!!)
+            collapseState = null
+        }
+
+        topState()?.update(delta)
     }
 
     fun render() {
-        if (this.currentMenu != null) {
-            this.currentMenu!!.render()
-        } else if (this.currentState != null) {
-            this.currentState!!.render()
-        }
+        topState()?.render()
     }
 
     fun resize(width: Int, height: Int) {
-        this.currentState?.resize(width, height)
+        topState()?.resize(width, height)
     }
 
     fun onExit() {
-        currentState?.onExit()
+        clearStates()
     }
 
 }

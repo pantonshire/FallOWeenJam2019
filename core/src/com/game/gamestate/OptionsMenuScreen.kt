@@ -2,25 +2,20 @@ package com.game.gamestate
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
-import com.game.Main
 import com.game.audio.AudioManager
 import com.game.audio.SoundCategory
-import com.game.gameplay.Level
-import com.game.gameplay.LevelFactory
 import com.game.graphics.Canvas
-import com.game.maths.Angle
 import com.game.maths.Maths
 import com.game.maths.Vec
-import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
+import com.game.settings.Settings
 import com.game.time.FixedTimer
 import com.game.ui.MenuElement
 
 abstract class OptionsMenuScreen(
-        previous: MenuScreen?,
         private val largestOptionX: Boolean = true,
         private val largestOptionY: Boolean = false
-): MenuScreen(previous) {
+): MenuScreen() {
 
     private val selectPulseTimer = FixedTimer(15, 0)
     private val options = ArrayList<MenuElement>()
@@ -54,7 +49,12 @@ abstract class OptionsMenuScreen(
     }
 
     protected fun drawSelectBox(canvas: Canvas, position: Vec, size: Vec) {
-        val boxScale = 1f + 0.125f * Maths.inhale(selectPulseTimer.angle())
+        val boxScale = if (Settings.getBool("ui-movement")) {
+            1f + 0.125f * Maths.inhale(selectPulseTimer.angle())
+        } else {
+            1f
+        }
+
         canvas.drawTextureCentred(
                 AssetManagerWrapper.INSTANCE.getTexture("whiteBox.png"),
                 canvas.centre + position,

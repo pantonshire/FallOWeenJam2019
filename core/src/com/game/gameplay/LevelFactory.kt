@@ -1,6 +1,8 @@
 package com.game.gameplay
 
-import com.game.gamestate.*
+import com.game.gamestate.GameState
+import com.game.gamestate.ResultsScreen
+import com.game.gamestate.Stage
 import com.game.random.Dice
 
 object LevelFactory {

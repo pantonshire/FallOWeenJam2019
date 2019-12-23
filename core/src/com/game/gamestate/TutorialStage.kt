@@ -1,6 +1,9 @@
 package com.game.gamestate
 
-import com.game.entity.*
+import com.game.entity.Bomb
+import com.game.entity.Door
+import com.game.entity.Entity
+import com.game.entity.Player
 import com.game.gameplay.Level
 import com.game.maths.Vec
 

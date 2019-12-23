@@ -1,7 +1,5 @@
 package com.game.maths
 
-import kotlin.math.abs
-
 class Angle(radians: Float): Approximatable<Angle>, Comparable<Angle> {
 
     companion object {

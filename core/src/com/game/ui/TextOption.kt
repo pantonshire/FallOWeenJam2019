@@ -3,7 +3,6 @@ package com.game.ui
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
-import com.game.gamestate.MenuScreen
 import com.game.gamestate.OptionsMenuScreen
 import com.game.graphics.Canvas
 import com.game.maths.Vec

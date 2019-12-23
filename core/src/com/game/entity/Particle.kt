@@ -5,9 +5,7 @@ import com.game.gamestate.World
 import com.game.graphics.Canvas
 import com.game.maths.Angle
 import com.game.maths.Vec
-import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
-import kotlin.math.cos
 
 class Particle(world: World, position: Vec, speed: Float, angle: Angle, val lifetime: Int = 30): Entity(world, Vec(2f, 2f), position) {
 

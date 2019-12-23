@@ -15,6 +15,7 @@ public class DesktopLauncher {
 		config.width = 640;
 		config.height = 360;
 		config.title = "Tiny Escapes";
+		config.pauseWhenBackground = true;
 		new LwjglApplication(new Main(), config);
 	}
 

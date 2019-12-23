@@ -1,32 +1,21 @@
 package com.game.gamestate
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.backends.lwjgl.LwjglGraphics
 import com.badlogic.gdx.graphics.Pixmap
 import com.game.Main
 import com.game.audio.AudioManager
 import com.game.graphics.Canvas
 import com.game.resources.AssetManagerWrapper
-import org.lwjgl.input.Mouse
+import com.game.settings.Settings
 
 
 class LaunchState: GameState() {
 
     override fun onEnter() {
         AssetManagerWrapper.INSTANCE.waitLoadAssets()
-
         AudioManager.setAudioEnabled(true)
-
         Gdx.graphics.setWindowedMode(1280, 720)
-        Gdx.graphics.setUndecorated(true)
-
-        val cursorPixmap = Pixmap(Gdx.files.internal("transparent.png"))
-        Gdx.graphics.setCursor(Gdx.graphics.newCursor(cursorPixmap, 0, 0))
-        cursorPixmap.dispose()
-
-//        Gdx.input.isCursorCatched = true
-
-        Main.gsm.queueState(MainMenu())
+        Settings.initialise()
     }
 
     override fun onExit() {
@@ -34,7 +23,7 @@ class LaunchState: GameState() {
     }
 
     override fun update(delta: Float) {
-
+        Main.gsm.queueCollapseTo(MainMenu())
     }
 
     override fun draw(canvas: Canvas) {

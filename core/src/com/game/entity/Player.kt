@@ -1,14 +1,15 @@
 package com.game.entity
 
 import com.badlogic.gdx.graphics.Color
+import com.game.gameplay.Modifiers
 import com.game.gamestate.World
 import com.game.graphics.Canvas
-import com.game.gameplay.Modifiers
 import com.game.maths.Angle
 import com.game.maths.Maths
 import com.game.maths.Vec
 import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
+import com.game.settings.Settings
 import kotlin.math.cos
 import kotlin.math.sign
 
@@ -39,17 +40,23 @@ class Player(world: World, modifiers: Array<String>, position: Vec): Playable(wo
             animationTime += delta
         }
 
-        val gravDir = sign(gravity)
-        val particleY = position.y - (8 * gravDir)
+        if (Settings.getBool("particles")) {
+            val gravDir = sign(gravity)
+            val particleY = position.y - (8 * gravDir)
 
-        if (velocity.x != 0f && onGround && framesAlive % 10 == 0) {
-            world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.8f..1.2f), if (velocity > 0f) { Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.2f) * gravDir) } else { Angle(Dice.FAIR.rollF(0f..0.2f) * gravDir) }) )
-        }
+            if (velocity.x != 0f && onGround && framesAlive % 10 == 0) {
+                world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.8f..1.2f), if (velocity > 0f) {
+                    Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.2f) * gravDir)
+                } else {
+                    Angle(Dice.FAIR.rollF(0f..0.2f) * gravDir)
+                }))
+            }
 
-        if ((onGround || justJumped) && !wasOnGround) {
-            for (i in 0..4) {
-                world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.2f..0.6f), Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.4f) * gravDir)))
-                world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.2f..0.6f), Angle(Dice.FAIR.rollF(0f..0.4f) * gravDir)))
+            if ((onGround || justJumped) && !wasOnGround) {
+                for (i in 0..4) {
+                    world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.2f..0.6f), Angle.HALF - Angle(Dice.FAIR.rollF(0f..0.4f) * gravDir)))
+                    world.queueSpawn(Particle(world, Vec(position.x, particleY), Dice.FAIR.rollF(0.2f..0.6f), Angle(Dice.FAIR.rollF(0f..0.4f) * gravDir)))
+                }
             }
         }
 

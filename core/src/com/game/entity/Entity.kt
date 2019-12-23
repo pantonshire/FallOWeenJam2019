@@ -3,7 +3,6 @@ package com.game.entity
 import com.game.gamestate.World
 import com.game.graphics.Canvas
 import com.game.maths.Vec
-import com.game.tilemap.TileMap
 
 abstract class Entity(val world: World, val size: Vec, initialPosition: Vec) {
 

@@ -2,7 +2,6 @@ package com.game.maths
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
-import com.game.maths.Approximatable
 import kotlin.math.*
 
 class Vec(val x: Float = 0f, val y: Float = 0f): Approximatable<Vec>, Comparable<Vec> {

@@ -6,11 +6,10 @@ import com.game.Main
 import com.game.audio.AudioManager
 import com.game.audio.SoundCategory
 import com.game.entity.Entity
-import com.game.graphics.Canvas
 import com.game.gameplay.Level
 import com.game.gameplay.Score
+import com.game.graphics.Canvas
 import com.game.maths.Vec
-import com.game.random.Dice
 import com.game.resources.AssetManagerWrapper
 import com.game.tilemap.TileMap
 import com.game.tilemap.TileMapFactory
@@ -67,7 +66,7 @@ abstract class Stage(
     override fun update(delta: Float) {
         if (introTimer <= 0 && !done) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-                Main.gsm.queueMenu(PauseScreen(null))
+                Main.gsm.queuePush(PauseScreen())
             } else {
                 super.update(delta)
                 if (player.isDead) {
@@ -99,7 +98,7 @@ abstract class Stage(
         } else if (done) {
             outroTimer--
             if (outroTimer <= 0) {
-                Main.gsm.queueState(if (!won && retryOnDeath) {
+                Main.gsm.queueCollapseTo(if (!won && retryOnDeath) {
                     level.makeStage(stageNo, nextState, skipIntro = true)
                 } else {
                     nextState

@@ -1,6 +1,6 @@
 package com.game.random
 
-import java.util.Random
+import java.util.*
 
 class FairDice(private val random: Random = Random()): Dice() {
 

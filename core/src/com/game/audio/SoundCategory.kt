@@ -1,8 +1,8 @@
 package com.game.audio
 
-enum class SoundCategory {
+enum class SoundCategory(val settingName: String) {
 
-    UI,
-    GAMEPLAY
+    UI ("audio-vol-ui"),
+    GAMEPLAY ("audio-vol-game")
 
 }

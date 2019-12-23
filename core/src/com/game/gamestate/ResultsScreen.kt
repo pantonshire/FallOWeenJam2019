@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.game.Main
 import com.game.gameplay.Level
-import com.game.graphics.Canvas
 import com.game.gameplay.Score
+import com.game.graphics.Canvas
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 
@@ -17,7 +17,7 @@ class ResultsScreen(private val level: Level): GameState() {
 
     override fun update(delta: Float) {
         if (currentPhase == 2 && timeLeft == 0 && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Main.gsm.queueState(LevelSelect())
+            Main.gsm.queueCollapseTo(LevelSelect())
         }
     }
 

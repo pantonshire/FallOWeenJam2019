@@ -1,21 +1,14 @@
 package com.game.gamestate
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 import com.game.Main
-import com.game.gameplay.Level
-import com.game.gameplay.LevelFactory
-import com.game.graphics.Canvas
-import com.game.maths.Angle
-import com.game.maths.Maths
 import com.game.maths.Vec
 import com.game.resources.AssetManagerWrapper
 import com.game.ui.Flabel
 import com.game.ui.Label
 import com.game.ui.TextOption
 
-class MainMenu: OptionsMenuScreen(null) {
+class MainMenu: OptionsMenuScreen() {
 
     init {
         val font = AssetManagerWrapper.INSTANCE.getFont("editundo.ttf")
@@ -24,7 +17,7 @@ class MainMenu: OptionsMenuScreen(null) {
         addElement(Label(this, Vec(0f, 20f), font, "BY TOM PANTON", 2f, Color.WHITE, true, true))
 
         addOption(TextOption(this, Vec(0f, -60f), font, "PLAY", 2f, true, true) {
-            Main.gsm.queueState(LevelSelect())
+            Main.gsm.queueCollapseTo(LevelSelect())
         })
 
         addOption(TextOption(this, Vec(0f, -100f), font, "QUIT", 2f, true, true) {

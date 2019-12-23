@@ -2,15 +2,17 @@ package com.game
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Graphics
+import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Pixmap
 import com.game.audio.AudioManager
 import com.game.gamestate.GameStateManager
 import com.game.gamestate.LaunchState
-import com.game.gamestate.MainMenu
 import com.game.resources.AssetManagerWrapper
 
 class Main: ApplicationAdapter() {
+
+    private var active = true
 
     companion object {
         val gsm = GameStateManager()
@@ -37,15 +39,17 @@ class Main: ApplicationAdapter() {
         AssetManagerWrapper.INSTANCE.loadSound("tick.wav")
         AssetManagerWrapper.INSTANCE.loadSound("pass.wav")
 
-        gsm.queueState(LaunchState())
+        gsm.queueCollapseTo(LaunchState())
     }
 
     override fun render() {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        gsm.update(Gdx.graphics.deltaTime)
-        AssetManagerWrapper.INSTANCE.waitLoadAssets() //replaced update()
-        gsm.render()
+        if (active) {
+            Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+            gsm.update(Gdx.graphics.deltaTime)
+            AssetManagerWrapper.INSTANCE.waitLoadAssets() //replaced update()
+            gsm.render()
+        }
     }
 
     override fun dispose() {
@@ -66,6 +70,14 @@ class Main: ApplicationAdapter() {
 
     override fun resize(width: Int, height: Int) {
         gsm.resize(width, height)
+    }
+
+    override fun pause() {
+        active = false
+    }
+
+    override fun resume() {
+        active = true
     }
 
 }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.ScalingViewport
 import com.game.maths.Vec
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
 class PixelPerfectViewport(worldSize: Vec, camera: Camera): ScalingViewport(Scaling.fill, worldSize.x, worldSize.y, camera) {
 

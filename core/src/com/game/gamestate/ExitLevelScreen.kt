@@ -11,23 +11,20 @@ import com.game.resources.AssetManagerWrapper
 import com.game.ui.Label
 import com.game.ui.TextOption
 
-class PauseScreen: OptionsMenuScreen() {
+class ExitLevelScreen: OptionsMenuScreen() {
 
     init {
         val font = AssetManagerWrapper.INSTANCE.getFont("editundo.ttf")
 
-        addElement(Label(this, Vec(0f, 120f), font, "PAUSED", 3f, Color.WHITE, true, true))
+        addElement(Label(this, Vec(0f, 120f), font, "ARE YOU SURE?", 3f, Color.WHITE, true, true))
+        addElement(Label(this, Vec(0f, 80f), font, "YOUR PROGRESS WILL BE LOST.", 2f, Color.WHITE, true, true))
 
-        addOption(TextOption(this, Vec(0f, 40f), font, "RESUME", 2f, true, true) {
+        addOption(TextOption(this, Vec(0f, 0f), font, "YES", 2f, true, true) {
+            Main.gsm.queueCollapseTo(LevelSelect())
+        })
+
+        addOption(TextOption(this, Vec(0f, -40f), font, "NO", 2f, true, true) {
             Main.gsm.queuePop()
-        })
-
-        addOption(TextOption(this, Vec(0f, 0f), font, "SETTINGS", 2f, true, true) {
-
-        })
-
-        addOption(TextOption(this, Vec(0f, -40f), font, "BACK TO MENU", 2f, true, true) {
-            Main.gsm.queuePush(ExitLevelScreen())
         })
     }
 
