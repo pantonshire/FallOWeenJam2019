@@ -7,7 +7,8 @@ but each time you escape the room, the rules of the game change!
 
 ## This repository
 This repository contains the source code for a post-jam version of the game. Since the original jam version,
-I have fixed some bugs and made improvements to the UI, amongst other minor changes.
+I have fixed some bugs and made improvements to the UI, amongst other minor changes. However, I have not
+added any additional gameplay content since the initial jam version.
 
 I am continuing to develop the game (with Tiny Escapes as a working title), but I am not making the code I
 write from this point onwards public.
