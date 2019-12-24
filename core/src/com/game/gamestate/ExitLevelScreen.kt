@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2019 Thomas Panton
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.game.gamestate
 
 import com.badlogic.gdx.Gdx
@@ -16,15 +33,15 @@ class ExitLevelScreen: OptionsMenuScreen() {
     init {
         val font = AssetManagerWrapper.INSTANCE.getFont("editundo.ttf")
 
-        addElement(Label(this, Vec(0f, 120f), font, "ARE YOU SURE?", 3f, Color.WHITE, true, true))
-        addElement(Label(this, Vec(0f, 80f), font, "YOUR PROGRESS WILL BE LOST.", 2f, Color.WHITE, true, true))
-
-        addOption(TextOption(this, Vec(0f, 0f), font, "YES", 2f, true, true) {
-            Main.gsm.queueCollapseTo(LevelSelect())
-        })
+        addElement(Label(this, Vec(0f, 80f), font, "ARE YOU SURE?", 3f, Color.WHITE, true, true))
+        addElement(Label(this, Vec(0f, 40f), font, "YOUR PROGRESS WILL BE LOST.", 2f, Color.WHITE, true, true))
 
         addOption(TextOption(this, Vec(0f, -40f), font, "NO", 2f, true, true) {
             Main.gsm.queuePop()
+        })
+
+        addOption(TextOption(this, Vec(0f, -80f), font, "YES", 2f, true, true) {
+            Main.gsm.queueCollapseTo(LevelSelect())
         })
     }
 
